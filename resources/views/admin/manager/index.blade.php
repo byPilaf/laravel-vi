@@ -4,7 +4,7 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 管理员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel(this)" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_add('添加管理员','{{ route('admin_manager_add') }}','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a></span> <span class="r">共有数据：<strong>{{ $data -> count() }}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_add('添加管理员','{{ route('admin_manager_add') }}','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a></span> <span class="r">共有数据：<strong>{{ $data -> count() }}</strong> 条</span> </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
@@ -17,7 +17,7 @@
 				<th width="50">性别</th>
 				<th width="90">手机</th>
 				<th width="250">邮箱</th>
-				<th>角色</th>
+				<th width="100">角色</th>
 				<th width="130">加入时间</th>
 				<th width="100">是否已启用</th>
 				<th width="100">操作</th>
@@ -26,7 +26,7 @@
 		<tbody>
 			@foreach($data as $val)
 			<tr class="text-c">
-				<td><input type="checkbox" value="1" name="check_id"></td>
+				<td><input type="checkbox" value="{{ $val -> id }}" name="check_id"></td>
 				<td>{{ $val -> id }}</td>
 				<td>{{ $val -> username }}</td>
 				<td>{{ $val -> gender }}</td>
@@ -89,13 +89,6 @@ $(function(){
 */
 
 /* 批量删除 */
-function datadel(obj,id){
-	layer.confirm('确认要删除吗?',function(index){
-		$.ajax({
-			type: "POST",
-		});
-	});
-}
 
 
 /*管理员-增加*/
