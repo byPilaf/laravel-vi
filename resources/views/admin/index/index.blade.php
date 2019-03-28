@@ -1,26 +1,4 @@
-﻿<!DOCTYPE HTML>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="Bookmark" href="/favicon.ico" >
-<link rel="Shortcut Icon" href="/favicon.ico" />
-<!--[if lt IE 9]>
-<script type="text/javascript" src="/admin/lib/html5shiv.js"></script>
-<script type="text/javascript" src="/admin/lib/respond.min.js"></script>
-<![endif]-->
-<link rel="stylesheet" type="text/css" href="/admin/static/h-ui/css/H-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/css/H-ui.admin.css" />
-<link rel="stylesheet" type="text/css" href="/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
-<link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/skin/green/skin.css" id="skin" />
-<link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/css/style.css" />
-<!--[if IE 6]>
-<script type="text/javascript" src="/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script>
-<![endif]-->
+﻿@include('admin.header')
 <title>H-ui.admin v3.1</title>
 <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
@@ -115,7 +93,7 @@
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="member-list.html" data-title="会员列表" href="javascript:;">会员列表</a></li>
+					<li><a data-href="{{ route('admin_user_list') }}" data-title="会员列表" href="javascript:;">会员列表</a></li>
 					<li><a data-href="member-del.html" data-title="删除的会员" href="javascript:;">删除的会员</a></li>
 					<li><a data-href="member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>
 					<li><a data-href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>
@@ -223,12 +201,7 @@
 		<li id="closeall">关闭全部 </li>
 </ul>
 </div>
-<!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="/admin/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="/admin/static/h-ui/js/H-ui.min.js"></script>
-<script type="text/javascript" src="/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
-
+@include('admin.footer')
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/admin/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript">

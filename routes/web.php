@@ -43,10 +43,12 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'], function () {
 
     //会员管理
     Route::group(['prefix' => 'user'],function(){
-        Route::get('index','Admin\UserController@index'); //会员列表展示
-        Route::any('add','Admin\UserController@add');    //会员添加
-        Route::any('edit','Admin\UserController@edit');  //会员编辑
-        Route::get('delete','Admin\UserController@delete');//会员删除
+        Route::get('index','Admin\UserController@index') -> name('admin_user_list'); //会员列表展示
+        Route::any('add','Admin\UserController@add') -> name('admin_user_add');    //会员添加
+        Route::any('edit','Admin\UserController@edit') -> name('admin_user_edit');  //会员编辑
+        Route::post('start','Admin\UserController@start') -> name('admin_user_start');//管理员启用
+        Route::post('stop','Admin\UserController@stop') -> name('admin_user_stop');//管理员停用
+        Route::get('delete','Admin\UserController@delete') -> name('admin_user_delete'); //会员删除
     });
 
     //文章管理
