@@ -51,7 +51,7 @@ class UserController extends Controller
            
             $this -> checkPost($request);
             //获取表单信息
-            $data = $request -> only('username','password','email','mobile','gender','role_id');
+            $data = $request -> only('username','password','email','mobile','uploadfile');
             $data['password'] = bcrypt($data['password']); //加密密码
             $data['created_at'] = date('Y-m-d H:i:s'); //添加时间
 
