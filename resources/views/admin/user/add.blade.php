@@ -27,7 +27,7 @@
 	<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
 			</div>
 		</div>
 		<div class="row cl">
@@ -68,13 +68,18 @@ $(function(){
 	
 	$("#form-member-add").validate({
 		rules:{
-			username:{
+			mobile:{
 				required:true,
-				minlength:2,
-				maxlength:16
+				isMobile:true,
 			},
-			sex:{
+			password:{
 				required:true,
+				minlength:6,
+			},
+			password2:{
+				required:true,
+				minlength:6,
+				equalTo: "#password"
 			},
 			mobile:{
 				required:true,
@@ -114,8 +119,8 @@ $(function(){
                 // error: function(XmlHttpRequest, textStatus, errorThrown){
                 error: function(data){
 					var json = JSON.parse(data.responseText);
-					alert(json.errors.username);
-					// layer.msg(json.errors.username);
+					alert(json.errors.name);
+					// layer.msg(json.errors.name);
 				}
 			});			
 		}

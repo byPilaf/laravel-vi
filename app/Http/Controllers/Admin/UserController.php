@@ -24,19 +24,16 @@ class UserController extends Controller
     {
              //post添加检查
              $this -> validate($request,[
-                'username' => 'required|min:3|max:20|unique:user,username',
+                'name' => 'max:20|unique:user,name',
+                'mobile' => 'required|numeric|unique:user,mobile',
                 'password' => 'required|min:6',
                 'password2' => 'required|min:6|same:password',
-                'gender' => 'required',
-                'mobile' => 'required|numeric',
                 'email' => 'required|email',     
-                'role_id' => 'required',
             ],[
                 //翻译的提示信息
-                'username.required' => '会员账户 不能为空', 
-                'username.min' => '会员账户 长度小于3', 
-                'username.max' => '会员账户 长度大于20', 
-                'username.unique' => '会员账户 已存在', 
+                'name.max' => '会员名称 长度大于20', 
+                'name.unique' => '会员名称 已存在',
+                'mobile.unique' => '会员手机号 已存在', 
                 'password2.same' => '确认密码 错误',
                 'password2.required' => '确认密码 不能为空',
                 'password2.min' => '确认密码 长度小于6',
@@ -51,7 +48,7 @@ class UserController extends Controller
            
             $this -> checkPost($request);
             //获取表单信息
-            $data = $request -> only('username','password','email','mobile','uploadfile');
+            $data = $request -> only('name','password','email','mobile','uploadfile');
             $data['password'] = bcrypt($data['password']); //加密密码
             $data['created_at'] = date('Y-m-d H:i:s'); //添加时间
 
@@ -84,7 +81,7 @@ class UserController extends Controller
             //post添加
             $id = $request -> get('id');
             //获取表单信息
-            $data = $request -> only('email','mobile','gender','role_id');
+            $data = $request -> only('email','mobile','name','avatarUrl');
             $data['updated_at'] = date('Y-m-d H:i:s'); //修改时间
             $request = User::where('id',$id) -> update($data);//插入数据
             

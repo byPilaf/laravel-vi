@@ -16,7 +16,7 @@ class ManagerTableSeeder extends Seeder
         $faker = \Faker\Factory::create('zh_CN');
         //生成100条假数据
         $data = [];
-        for ($i=0; $i < 100; $i++) 
+        for ($i=0; $i < 10; $i++) 
         { 
             $data[] = [
                 'username'  =>  $faker -> userName,
