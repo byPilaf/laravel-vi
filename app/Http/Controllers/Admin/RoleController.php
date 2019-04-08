@@ -19,6 +19,20 @@ class RoleController extends Controller
         return view('admin.role.index',compact('data'));
     }
 
+    //检查角色添加post
+    private function checkPost($request)
+    {
+        //检查post添加
+        $this -> validate($request,[
+            'rolename' => 'required',
+            'authid' => 'required',
+        ],[
+            //翻译信息
+            'rolename.required' => '角色名不能为空',
+            'authid.required' => '请选择对应权限',
+        ]);
+    }
+
     //角色添加
     public function add(Request $request)
     {
@@ -78,5 +92,23 @@ class RoleController extends Controller
             return view('admin.role.edit',compact('data'));
         }
         
+    }
+
+    //角色删除
+    public function delete(Request $request)
+    {
+        $id = $request -> only('id');
+        $request = Role::where('id',$id) -> delete();
+
+        //判断是否成功
+        if($request)
+        {
+            $response = ['code' => '0','msg' => '删除成功'];
+        }
+        else
+        {
+            $response = ['code' => '1','msg' => '删除失败'];
+        }
+        return response() -> json($response);
     }
 }

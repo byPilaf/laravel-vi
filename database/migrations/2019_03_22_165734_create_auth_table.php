@@ -17,8 +17,9 @@ class CreateAuthTable extends Migration
             $table -> increments('id');
             $table -> string('authname',20) -> notnull() -> comment('权限名称');
             $table -> string('controller',50) -> notnull() -> comment('控制器名');
-            $table -> string('action',20) -> notnull() -> comment('方法名');
-            $table -> tinyInteger('pid') -> nullable() -> comment('父级权限id');
+            $table -> string('action',20) -> nullable() -> comment('方法名');
+            $table -> tinyInteger('pid') -> notnull() -> comment('父级权限id');
+            $table -> enum('is_nav',['1','2']) -> notnull() -> comment('是否作为菜单显示,1=是,2=否');
         });
     }
 

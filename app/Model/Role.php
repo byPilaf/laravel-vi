@@ -10,12 +10,8 @@ class Role extends Model
     protected $table = 'role';
     public $timestamps = false;
 
-    /**
-     * 获得此角色的权限
-     */
-    public function auths()
+    public function manager_name()
     {
-        return $this->belongsToMany('App\Model\Auth','role_auth','role_id','auth_id');
+        return $this -> hasMany('App\Model\Manager','role_id','id');
     }
-    
 }

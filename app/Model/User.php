@@ -8,4 +8,5 @@ class User extends Model
 {
     //基本定义
     protected $table = 'user';
+    
 }

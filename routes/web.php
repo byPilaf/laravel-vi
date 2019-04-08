@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'], function () {
         Route::any('edit','Admin\UserController@edit') -> name('admin_user_edit');  //会员编辑
         Route::post('start','Admin\UserController@start') -> name('admin_user_start');//管理员启用
         Route::post('stop','Admin\UserController@stop') -> name('admin_user_stop');//管理员停用
-        Route::get('delete','Admin\UserController@delete') -> name('admin_user_delete'); //会员删除
+        Route::post('delete','Admin\UserController@delete') -> name('admin_user_delete'); //会员删除
     });
 
     //文章管理
@@ -56,7 +56,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'], function () {
         Route::get('index','Admin\ArticleController@index'); //文章列表展示
         Route::any('add','Admin\ArticleController@add');    //文章添加
         Route::any('edit','Admin\ArticleController@edit');  //文章编辑
-        Route::get('delete','Admin\ArticleController@delete');//文章删除
+        Route::post('delete','Admin\ArticleController@delete');//文章删除
     });
 
     //评论管理
@@ -64,23 +64,23 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'], function () {
         Route::get('index','Admin\CommentController@index'); //评论列表展示
         Route::any('add','Admin\CommentController@add');    //评论添加
         Route::any('edit','Admin\CommentController@edit');  //评论编辑
-        Route::get('delete','Admin\CommentController@delete');//评论删除
+        Route::post('delete','Admin\CommentController@delete');//评论删除
     });
 
     //权限管理
     Route::group(['prefix' => 'auth'],function(){
-        Route::get('index','Admin\AuthController@index'); //权限列表展示
-        Route::any('add','Admin\AuthController@add');    //权限添加
-        Route::any('edit','Admin\AuthController@edit');  //权限编辑
-        Route::get('delete','Admin\AuthController@delete');//权限删除
+        Route::get('index','Admin\AuthController@index') -> name('admin_auth_list'); //权限列表展示
+        Route::any('add','Admin\AuthController@add') -> name('admin_auth_add');    //权限添加
+        Route::any('edit','Admin\AuthController@edit') -> name('admin_auth_edit');  //权限编辑
+        Route::post('delete','Admin\AuthController@delete') -> name('admin_auth_delete');//权限删除
     });
 
     //角色管理
     Route::group(['prefix' => 'role'],function(){
-        Route::get('index','Admin\RoleController@index'); //角色列表展示
-        Route::any('add','Admin\RoleController@add');    //角色添加
-        Route::any('edit','Admin\RoleController@edit');  //角色编辑
-        Route::get('delete','Admin\RoleController@delete');//角色删除
+        Route::get('index','Admin\RoleController@index') -> name('admin_role_list'); //角色列表展示
+        Route::any('add','Admin\RoleController@add') -> name('admin_role_add');    //角色添加
+        Route::any('edit','Admin\RoleController@edit') -> name('admin_role_edit');  //角色编辑
+        Route::post('delete','Admin\RoleController@delete') -> name('admin_role_delete');//角色删除
     });
 });
 

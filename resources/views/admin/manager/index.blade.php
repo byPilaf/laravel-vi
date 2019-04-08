@@ -32,7 +32,7 @@
 				<td>{{ $val -> gender }}</td>
 				<td>{{ $val -> mobile}}</td>
 				<td>{{ $val -> email}}</td>
-				<td>{{ $val -> rel_role -> rolename}}</td>
+				<td>{{ $val -> rel_role["rolename"]}}</td>
 				<td>{{ $val -> created_at}}</td>
 				<td class="td-status">
 				@if($val -> status == '1')
@@ -74,7 +74,7 @@ $(function(){
 	//datatables初始化
 	$('table').DataTable({
 		"columnDefs" : [{"orderable": false,"targets":0}],
-		"order": [[1,3,"asc"]]
+		"order": [[1,"asc"]]
 	});
 });
 </script>
@@ -107,8 +107,8 @@ function admin_del(obj,id){
 				if(data.code == '0')
 				{
 					layer.msg(data.msg,{icon:1,time:1000},function(){
-						// location.href = location.href;
-						$(obj).parents("tr").remove();
+						location.href = location.href;
+						// $(obj).parents("tr").remove();
 					});
 				}
 				else{

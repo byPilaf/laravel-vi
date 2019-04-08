@@ -1,55 +1,58 @@
-@include('admin.header')
-<title>编辑管理员 - 管理员管理</title>
+﻿@include('admin.header')
+<title>添加权限 - 权限管理</title>
 </head>
 <body>
 <article class="page-container">
-	@foreach($data as $val)
 	<form class="form form-horizontal" action="" method="post" id="form-admin-add">
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员账号：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="{{$val -> username}}" disabled="disabled" placeholder="" id="adminName" name="username">
+			<input type="text" class="input-text" value="" placeholder="" id="authname" name="authname">
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
-		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-			<div class="radio-box">
-				<input name="gender" type="radio" id="sex-1" @if($val -> gender == '男') checked @endif>
-				<label for="sex-1" value="男">男</label>
-			</div>
-			<div class="radio-box">
-				<input type="radio" id="sex-2"  value="女" name="gender" @if($val -> gender == '女') checked @endif>
-				<label for="sex-2" value="女">女</label>
-			</div>
-			<div class="radio-box">
-				<input type="radio" id="sex-3" value="保密" name="gender" @if($val -> gender == '保密') checked @endif>
-				<label for="sex-3" value="保密" >保密</label>
-			</div>
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机号：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>控制器名：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="{{$val -> mobile}}" placeholder="" id="mobile" name="mobile">
+			<input type="text" class="input-text" value="" id="controller" name="controller">
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+		<label class="form-label col-xs-4 col-sm-3">方法名：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" placeholder="@" name="email" id="email" value="{{$val -> email}}">
+			<input type="text" class="input-text" id="action" name="action">
 		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">角色：</label>
+  </div>
+  <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>父级权限：</label>
 		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="role_id" size="1">
-				@foreach($role as $a)
-				<option @if($val -> role_id == $a -> id) selected="selected" @endif value="{{$a -> id}}">{{$a -> rolename}}</option>
+			<select class="select" name="pid" size="1">
+				<option value="0">作为顶级权限</option>
+				@foreach($parents as $val)
+				<option value="{{ $val -> id }}">{{ $val -> authname }}</option>
 				@endforeach
 			</select>
 			</span> </div>
 	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>作为导航：</label>
+		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			<div class="radio-box">
+				<input name="is_nav" type="radio" id="is_nav-1" value="1" checked>
+				<label for="is_nav-1" value="1">是</label>
+			</div>
+			<div class="radio-box">
+				<input type="radio" id="is_nav-2" name="is_nav" value="2">
+				<label for="is_nav-2" value="2">否</label>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">备注：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+			<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+		</div>
+	</div> -->
 	{{csrf_field()}}
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
@@ -57,7 +60,6 @@
 		</div>
 	</div>
 	</form>
-	@endforeach
 </article>
 @include('admin.footer')
 <!--请在下方写此页面业务相关的脚本-->
@@ -74,32 +76,13 @@ $(function(){
 	
 	$("#form-admin-add").validate({
 		rules:{
-			adminName:{
-				required:true,
-				minlength:3,
-				maxlength:20
-			},
-			password:{
-				required:true,
-				minlength:6,
-			},
-			password2:{
-				required:true,
-				minlength:6,
-				equalTo: "#password"
-			},
-			gender:{
+			authname:{
 				required:true,
 			},
-			mobile:{
+			controller:{
 				required:true,
-				isPhone:true,
 			},
-			email:{
-				required:true,
-				email:true,
-			},
-			role_id:{
+			is_nav:{
 				required:true,
 			},
 		},
@@ -128,7 +111,6 @@ $(function(){
                 // error: function(XmlHttpRequest, textStatus, errorThrown){
                 error: function(data){
 					var json = JSON.parse(data.responseText);
-					alert(json.errors.username);
 					// layer.msg(json.errors.username);
 				}
 			});			

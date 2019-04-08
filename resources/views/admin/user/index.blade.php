@@ -153,8 +153,8 @@ function member_del(obj,id){
 				if(data.code == '0')
 				{
 					layer.msg(data.msg,{icon:1,time:1000},function(){
-						// location.href = location.href;
-						$(obj).parents("tr").remove();
+						location.href = location.href;
+						// $(obj).parents("tr").remove();
 					});
 				}
 				else{
