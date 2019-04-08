@@ -20,7 +20,9 @@ class ManagerController extends Controller
         return view('admin.manager.index',compact('data'));
     }
 
-    //检查表单信息
+    /**
+     * 检查表单信息
+     */
     private function checkPost($request)
     {
              //post添加检查

@@ -19,7 +19,9 @@ class UserController extends Controller
         return view('admin.user.index',compact('data'));
     }
 
-    //检查表单信息
+    /**
+     * 检查表单信息
+     */
     private function checkPost($request)
     {
              //post添加检查

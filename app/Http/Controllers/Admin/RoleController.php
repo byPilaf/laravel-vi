@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 //引入模型
 use App\Model\Role;
+use App\Model\Auth;
+use App\Model\Role_Auth;
 
 class RoleController extends Controller
 {
@@ -19,18 +21,32 @@ class RoleController extends Controller
         return view('admin.role.index',compact('data'));
     }
 
-    //检查角色添加post
+    /**
+     * 检查表单信息
+     */
     private function checkPost($request)
     {
         //检查post添加
         $this -> validate($request,[
-            'rolename' => 'required',
-            'authid' => 'required',
+            'rolename' => 'required|unique:role,rolename',
         ],[
             //翻译信息
             'rolename.required' => '角色名不能为空',
-            'authid.required' => '请选择对应权限',
+            'rolename.unique' => '角色名已存在', 
         ]);
+    }
+
+    /**
+     * 角色id与权限id相对应合成数组
+     */
+    private function addRoleIdAuthId($role_id,$auth_id)
+    {
+        foreach ($auth_id['auth_id'] as $value) 
+        {
+            $role_auth[]['role_id'] = $role_id;
+            $role_auth[]['auth_id'] = $value;
+        }
+        return $role_auth;
     }
 
     //角色添加
@@ -40,9 +56,16 @@ class RoleController extends Controller
         {           
             $this -> checkPost($request);
             //获取表单信息
-            $data = $request -> only('rolename');
-            $request = Role::insert($data);//插入数据
-            
+            $data = $request -> only('rolename','description');
+            //获取auth_id
+            $auth_id = $request -> only('auth_id');
+            //插入数据并获取插入数据的角色id
+            // $role_id = Role::insertGetId($data);
+            $role_id = 8;
+            $test = $this -> addRoleIdAuthId($role_id,$auth_id);
+            // var_dump($test);
+            dd($test);
+            $request = Role_Auth::insert();
             //判断是否成功
             if($request)
             {
@@ -56,8 +79,10 @@ class RoleController extends Controller
         }
         else
         {
+            //获取权限
+            $topAuth = Auth::where('pid',0) -> get();
             //get请求页面
-            return view('admin.role.add');
+            return view('admin.role.add',compact('topAuth'));
         }
         
     }

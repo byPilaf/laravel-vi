@@ -13,7 +13,9 @@ class Manager extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
     //使用trait
     use Authenticatable;
 
-    //关联角色模型
+    /**
+     * 查询管理员对应角色
+     */
     public function rel_role()
     {
         //一对一

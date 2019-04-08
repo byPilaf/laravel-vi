@@ -10,9 +10,19 @@ class Auth extends Model
     protected $table = 'auth';
     public $timestamps = false;
 
-    //查询父级权限
+    /**
+     * 查询父级权限
+     */
     public function parentAuthName()
     {
         return $this -> hasOne('App\Model\Auth','id','pid');
+    }
+
+    /**
+     * 查询子权限
+     */
+    public function childAuth()
+    {
+        return $this -> hasMany('App\Model\Auth','pid','id');
     }
 }

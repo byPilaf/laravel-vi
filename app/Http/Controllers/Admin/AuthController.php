@@ -17,16 +17,19 @@ class AuthController extends Controller
         return view('admin.auth.index',compact('data'));
     }
 
-    //检查表单信息
+    /**
+     * 检查表单信息
+     */
     private function checkPost($request)
     {
         $this -> validate($request,[
-            'authname' => 'required',
+            'authname' => 'required|unique:auth,authname',
             'controller' => 'required',
             'pid' => 'required|numeric',
             'is_nav' => 'required',
         ],[
             'authname.required' => '权限名称不能为空',
+            'authname.unique' => '权限名称已存在', 
             'controller.required' => '控制器名不能为空',
             'pid.required' => '请选择父级权限',
             'pid.numeric' => '输入不合法',
