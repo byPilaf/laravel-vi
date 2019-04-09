@@ -9,7 +9,7 @@ class Auth extends Model
     //基本定义
     protected $table = 'auth';
     public $timestamps = false;
-
+    
     /**
      * 查询父级权限
      */
@@ -25,4 +25,5 @@ class Auth extends Model
     {
         return $this -> hasMany('App\Model\Auth','pid','id');
     }
+
 }

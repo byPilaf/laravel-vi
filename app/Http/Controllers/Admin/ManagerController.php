@@ -88,7 +88,7 @@ class ManagerController extends Controller
         {
             //post添加
             $id = $request -> get('id');
-            $this -> checkPost($request);
+            // $this -> checkPost($request);
             //获取表单信息
             $data = $request -> only('email','mobile','gender','role_id');
             $data['updated_at'] = date('Y-m-d H:i:s'); //修改时间
