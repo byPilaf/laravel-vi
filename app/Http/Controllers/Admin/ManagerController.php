@@ -20,13 +20,14 @@ class ManagerController extends Controller
         return view('admin.manager.index',compact('data'));
     }
 
-    /**
-     * 检查表单信息
-     */
-    private function checkPost($request)
+    //管理员添加
+    public function add(Request $request)
     {
-             //post添加检查
-             $this -> validate($request,[
+        if($request -> isMethod('post'))
+        {
+           
+            //post添加检查
+            $this -> validate($request,[
                 'username' => 'required|min:3|max:20|unique:manager,username',
                 'password' => 'required|min:6',
                 'password2' => 'required|min:6|same:password',
@@ -45,15 +46,6 @@ class ManagerController extends Controller
                 'password2.min' => '确认密码 长度小于6',
                 'role_id.required' => '角色 不能为空'
             ]);
-    }
-
-    //管理员添加
-    public function add(Request $request)
-    {
-        if($request -> isMethod('post'))
-        {
-           
-            $this -> checkPost($request);
             //获取表单信息
             $data = $request -> only('username','password','email','mobile','gender','role_id');
             $data['password'] = bcrypt($data['password']); //加密密码
@@ -88,7 +80,16 @@ class ManagerController extends Controller
         {
             //post添加
             $id = $request -> get('id');
-            // $this -> checkPost($request);
+            //post编辑检查
+            $this -> validate($request,[
+                'gender' => 'required',
+                'mobile' => 'required|numeric',
+                'email' => 'required|email',     
+                'role_id' => 'required',
+            ],[
+                //翻译的提示信息
+                'role_id.required' => '角色 不能为空'
+            ]);
             //获取表单信息
             $data = $request -> only('email','mobile','gender','role_id');
             $data['updated_at'] = date('Y-m-d H:i:s'); //修改时间
@@ -101,7 +102,7 @@ class ManagerController extends Controller
             }
             else
             {
-                $response = ['code' => '1','msg' => '数据编辑失败'];
+                $response = ['code' => '1','msg' => '数据并未修改'];
             }
             return response() -> json($response);
         }

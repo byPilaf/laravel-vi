@@ -80,6 +80,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth:admin'], function () {
         Route::get('index','Admin\RoleController@index') -> name('admin_role_list'); //角色列表展示
         Route::any('add','Admin\RoleController@add') -> name('admin_role_add');    //角色添加
         Route::any('edit','Admin\RoleController@edit') -> name('admin_role_edit');  //角色编辑
+        Route::any('editAuth','Admin\RoleController@editAuth') -> name('admin_role_edit_auth');  //角色权限编辑
         Route::post('delete','Admin\RoleController@delete') -> name('admin_role_delete');//角色删除
     });
 });

@@ -22,43 +22,35 @@ class RoleController extends Controller
     }
 
     /**
-     * 检查表单信息
-     */
-    private function checkPost($request)
-    {
-        //检查post添加
-        $this -> validate($request,[
-            'rolename' => 'required|unique:role,rolename',
-        ],[
-            //翻译信息
-            'rolename.required' => '角色名不能为空',
-            'rolename.unique' => '角色名已存在', 
-        ]);
-    }
-
-    /**
      * 角色id与权限id相对应合成数组
      */
-    private function addRoleIdAuthId($role_id,$auth_id)
-    {
-        $role_auth = [];
-        foreach ($auth_id['auth_id'] as $value) 
-        {
-            $array = [
-                'role_id' => $role_id,
-                'auth_id' => $value,
-            ];
-            array_push($role_auth,$array);
-        }
-        return $role_auth;
-    }
+    // private function addRoleIdAuthId($role_id,$auth_id)
+    // {
+    //     $role_auth = [];
+    //     foreach ($auth_id['auth_id'] as $value) 
+    //     {
+    //         $array = [
+    //             'role_id' => $role_id,
+    //             'auth_id' => $value,
+    //         ];
+    //         array_push($role_auth,$array);
+    //     }
+    //     return $role_auth;
+    // }
 
     //角色添加
     public function add(Request $request)
     {
         if($request -> isMethod('post'))
         {           
-            $this -> checkPost($request);
+            //检查post添加
+            $this -> validate($request,[
+                'rolename' => 'required|unique:role,rolename',
+            ],[
+                //翻译信息
+                'rolename.required' => '角色名不能为空',
+                'rolename.unique' => '角色名已存在', 
+            ]);
             //获取表单信息
             $data = $request -> only('rolename','description');
             //获取auth_id
@@ -68,15 +60,18 @@ class RoleController extends Controller
             if($role_id)
             {
                 //若成功插入角色数据,并返回新的角色id
-                $role_auth = $this -> addRoleIdAuthId($role_id,$auth_id);
+                // $role_auth = $this -> addRoleIdAuthId($role_id,$auth_id);
                 //插入role_auth表
-                $request = Role_Auth::insert($role_auth);
+                // $request = Role_Auth::insert($role_auth);
+                //使用模型关联方法插入数据
+                Role::find($role_id) -> auths() -> attach($auth_id['auth_id']);
+                $request = true;
             }
             else
             {
                 $request = false;
             }
-            
+
             //判断是否成功
             if($request)
             {
@@ -104,28 +99,25 @@ class RoleController extends Controller
         if($request -> isMethod('post'))
         {
             $role_id = $request -> get('id');
-            // $this -> checkPost($request);
+            //检查post添加
+            $this -> validate($request,[
+                'rolename' => 'required',
+            ],[
+                //翻译信息
+                'rolename.required' => '角色名不能为空',
+            ]);
             //获取表单信息
             $data = $request -> only('rolename','description');
-            //获取auth_id
-            $auth_id = $request -> only('auth_id');
-            //插入数据并获取插入数据的角色id
             $request = Role::where('id',$role_id) -> update($data);
-
-            $request2 = Role_Auth::where('role_id',$role_id) -> delete();
-            //若成功插入角色数据,并返回新的角色id
-            $role_auth = $this -> addRoleIdAuthId($role_id,$auth_id);
-            //插入role_auth表
-            $request2 = Role_Auth::insert($role_auth);
             
             //判断是否成功
-            if($request2)
+            if($request)
             {
-                $response = ['code' => '0','msg' => '数据添加成功'];
+                $response = ['code' => '0','msg' => '数据编辑成功'];
             }
             else
             {
-                $response = ['code' => '1','msg' => '数据添加失败'];
+                $response = ['code' => '1','msg' => '数据并未修改'];
             }
             return response() -> json($response);
         }
@@ -135,11 +127,43 @@ class RoleController extends Controller
             $id = $request -> get('id');
             //获取角色
             $data = Role::find($id);
-            //获取权限
-            $topAuth = Auth::where('pid',0) -> get();
-            return view('admin.role.edit',compact('data','topAuth'));
+            return view('admin.role.edit',compact('data'));
         }
         
+    }
+
+    //角色权限编辑
+    public function editAuth(Request $request)
+    {
+        $role_id = $request -> get('id');
+        if($request -> isMethod('post'))
+        {
+            //获取auth_id
+            $auth_id = $request -> only('auth_id');
+            //
+            $request = Role::find($role_id) -> auths() -> sync($auth_id['auth_id']);
+
+            //判断是否成功
+            if($request)
+            {
+                $response = ['code' => '0','msg' => '数据编辑成功'];
+            }
+            else
+            {
+                $response = ['code' => '1','msg' => '数据并未修改'];
+            }
+            return response() -> json($response);
+
+        }
+        else
+        {
+            //获取权限
+            $topAuth = Auth::where('pid',0) -> get();
+            //获取角色
+            $data = Role::find($role_id);
+            //get请求页面
+            return view('admin.role.editAuth',compact('topAuth','data'));
+        }
     }
 
     //角色删除

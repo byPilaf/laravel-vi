@@ -31,7 +31,17 @@
 				@endforeach
 				</td>
 				<td>{{$val -> description}}</td>
-				<td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','{{route('admin_role_edit')}}','{{$val -> id}}')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'{{$val -> id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="f-14">
+					<a title="编辑权限" href="javascript:;" onclick="admin_role_edit('权限编辑','{{route('admin_role_edit_auth')}}','{{$val -> id}}','',500)" style="text-decoration:none">
+					<i class="Hui-iconfont">&#xe716;</i>
+					</a>
+					<a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','{{route('admin_role_edit')}}','{{$val -> id}}','',300)" style="text-decoration:none">
+					<i class="Hui-iconfont">&#xe6df;</i>
+					</a> 
+					<a title="删除" href="javascript:;" onclick="admin_role_del(this,'{{$val -> id}}')" class="ml-5" style="text-decoration:none">
+					<i class="Hui-iconfont">&#xe6e2;</i>
+					</a>
+				</td>
 			</tr>
 			@endforeach
 		</tbody>
@@ -41,6 +51,13 @@
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
+$(function(){
+	//datatables初始化
+	$('table').DataTable({
+		"columnDefs" : [{"orderable": false,"targets":0}],
+		"order": [[1,"asc"]]
+	});
+});
 /*管理员-角色-添加*/
 function admin_role_add(title,url,w,h){
 	layer_show(title,url,w,h);
