@@ -19,11 +19,14 @@ class UserTableSeeder extends Seeder
         {
             $data[] = [
                 'mobile'    =>     $faker -> phoneNumber,
-                'password'  =>   bcrypt('123456'),
-                'name'      =>       $faker -> name,
-                'avatarUrl' =>  '/uploads/useravatar/avatar.png',
-                'email'     =>      $faker -> email,
+                'membername'=>     $faker -> username,
+                'password'  =>     bcrypt('123456'),
+                'name'      =>     $faker -> name,
+                'avatarUrl' =>     '/uploads/useravatar/avatar.png',
+                'email'     =>     $faker -> email,
                 'status'    =>     rand(1,2),
+                'gender'    =>     rand(1,3),
+                'type'      =>     rand(1,2),
                 'created_at'=>  date('Y-m-d H:i:s'),
             ];
         }

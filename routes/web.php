@@ -47,8 +47,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::get('index','Admin\UserController@index') -> name('admin_user_list'); //会员列表展示
         Route::any('add','Admin\UserController@add') -> name('admin_user_add');    //会员添加
         Route::any('edit','Admin\UserController@edit') -> name('admin_user_edit');  //会员编辑
-        Route::post('start','Admin\UserController@start') -> name('admin_user_start');//管理员启用
-        Route::post('stop','Admin\UserController@stop') -> name('admin_user_stop');//管理员停用
+        Route::post('start','Admin\UserController@start') -> name('admin_user_start');//会员启用
+        Route::post('stop','Admin\UserController@stop') -> name('admin_user_stop');//会员停用
         Route::post('delete','Admin\UserController@delete') -> name('admin_user_delete'); //会员删除
     });
 

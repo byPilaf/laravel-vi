@@ -78,10 +78,10 @@ class UserController extends Controller
     //会员修改
     public function edit(Request $request)
     {
+        $id = $request -> get('id');
         if($request -> isMethod('post'))
         {
             //post添加
-            $id = $request -> get('id');
             //获取表单信息
             $data = $request -> only('email','mobile','name','avatarUrl');
             $data['updated_at'] = date('Y-m-d H:i:s'); //修改时间
@@ -101,7 +101,6 @@ class UserController extends Controller
         else
         {
             //get请求页面
-            $id = $request -> get('id');
             $data = User::find($id);
             return view('admin.user.edit',compact('data'));
         }
