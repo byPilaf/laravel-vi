@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::post('start','Admin\ManagerController@start') -> name('admin_manager_start');//管理员启用
         Route::post('stop','Admin\ManagerController@stop') -> name('admin_manager_stop');//管理员停用
         Route::post('delete','Admin\ManagerController@delete') -> name('admin_manager_delete');//管理员删除
+        Route::any('editPassword','Admin\ManagerController@editPassword') -> name('admin_manager_editPassword');//管理员修改密码
     });
 
     //会员管理

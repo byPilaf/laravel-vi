@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 //引入模型
 use App\Model\Manager;
 use App\Model\Role;
+use Illuminate\Support\Facades\Hash;
 
 class ManagerController extends Controller
 {
@@ -171,5 +172,48 @@ class ManagerController extends Controller
             $response = ['code' => '1','msg' => '删除失败'];
         }
         return response() -> json($response);
+    }
+
+    //管理员修改密码
+    public function editPassword(Request $request)
+    {
+        $id = $request -> only('id');
+        if($request -> isMethod('post'))
+        {   
+            $this -> validate($request,[
+                'oldpassword' => 'required|min:6',
+                'newpassword' => 'required|min:6',
+                'newpassword2' => 'required|min:6|same:newpassword',
+                'captcha'   =>  'required|captcha',
+            ],[
+                'captcha.captcha' => '验证码错误',
+            ]);
+            $password = $request -> only('oldpassword','newpassword');
+            $oldPassword = Manager::where('id',$id) -> value('password');
+            if(Hash::check($password['oldpassword'], $oldPassword))
+            {
+                $data['password'] = bcrypt($password['newpassword']);
+                $request = Manager::where('id',$id) -> update($data);
+            }
+            else
+            {   
+                $request = false;
+            }
+
+            if($request)
+            {
+                $response = ['code' => '0','msg' => '密码修改成功'];
+            }
+            else
+            {
+                $response = ['code' => '1','msg' => '原密码错误,修改失败'];
+            }
+            return response() -> json($response);
+        }
+        else
+        {
+            $data = Manager::where('id',$id) -> value('username');
+            return view('admin.manager.editPassword',compact('data'));
+        }
     }
 }

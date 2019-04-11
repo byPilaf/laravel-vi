@@ -102,7 +102,7 @@ class UserController extends Controller
         {
             //get请求页面
             $id = $request -> get('id');
-            $data = User::where('id',$id) -> get();
+            $data = User::find($id);
             return view('admin.user.edit',compact('data'));
         }
         

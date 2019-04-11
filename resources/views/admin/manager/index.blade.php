@@ -54,6 +54,9 @@
 					<a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','{{ route('admin_manager_edit') }}','{{ $val -> id }}','800','500')" class="ml-5" style="text-decoration:none">
 						<i class="Hui-iconfont">&#xe6df;</i>
 					</a> 
+					<a title="修改密码" href="javascript:;" onclick="admin_edit('修改管理员密码','{{ route('admin_manager_editPassword') }}','{{ $val -> id }}','','400')" class="ml-5" style="text-decoration:none">
+						<i class="Hui-iconfont">&#xe63f;</i>
+					</a> 
 					<a title="删除" href="javascript:;" onclick="admin_del(this,'{{ $val -> id }}')" class="ml-5" style="text-decoration:none">
 						<i class="Hui-iconfont">&#xe6e2;</i>
 					</a>
@@ -64,7 +67,6 @@
 	</table>
 </div>
 @include('admin.footer')
-
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
