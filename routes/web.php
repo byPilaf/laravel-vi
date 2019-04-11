@@ -22,7 +22,7 @@ Route::post('admin/login/check','Admin\publicController@check') -> name('admin_l
 
 
 //后台分组
-Route::group(['prefix' => 'admin','middleware' => 'auth:admin'], function () {
+Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], function () {
 
     //后台首页
     Route::group(['prefix' => 'index'],function(){
