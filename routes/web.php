@@ -50,6 +50,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::post('start','Admin\UserController@start') -> name('admin_user_start');//会员启用
         Route::post('stop','Admin\UserController@stop') -> name('admin_user_stop');//会员停用
         Route::post('delete','Admin\UserController@delete') -> name('admin_user_delete'); //会员删除
+        Route::get('getAreaById','Admin\UserController@getAreaById') -> name('admin_user_getAreaById'); //会员获取地区id
     });
 
     //文章管理

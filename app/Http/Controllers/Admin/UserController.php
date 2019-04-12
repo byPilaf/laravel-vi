@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 //引入模型
 use App\Model\User;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -42,6 +43,17 @@ class UserController extends Controller
             ]);
     }
 
+    //根据地区id获取下属行政区划
+    public function getAreaById(Request $request)
+    {
+        //获取id
+        $id = (int) $request -> get('id');
+        //获取下属地址
+        $data = DB::table('area') -> where('pid',$id) -> get();
+        //输出json数据
+        return response() -> json($data);
+    }
+
     //会员添加
     public function add(Request $request)
     {
@@ -50,8 +62,9 @@ class UserController extends Controller
            
             $this -> checkPost($request);
             //获取表单信息
-            $data = $request -> only('name','password','email','mobile','uploadfile');
+            $data = $request -> only('mobile','membername','password','name','email','country_id','province_id','city_id','county_id','gender','type');
             $data['password'] = bcrypt($data['password']); //加密密码
+            $data['avatarUrl'] = "/uploads/useravatar/avatar.png"; //头像地址
             $data['created_at'] = date('Y-m-d H:i:s'); //添加时间
 
             $request = User::insert($data);//插入数据
@@ -69,8 +82,10 @@ class UserController extends Controller
         }
         else
         {
+            //查询国家数据
+            $country = DB::table('area') -> where('pid','0') -> get();
             //get请求页面
-            return view('admin.user.add');
+            return view('admin.user.add',compact('country'));
         }
         
     }

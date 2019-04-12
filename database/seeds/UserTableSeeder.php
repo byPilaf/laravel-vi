@@ -27,7 +27,7 @@ class UserTableSeeder extends Seeder
                 'status'    =>     rand(1,2),
                 'gender'    =>     rand(1,3),
                 'type'      =>     rand(1,2),
-                'created_at'=>  date('Y-m-d H:i:s'),
+                'created_at'=>     date('Y-m-d H:i:s'),
             ];
         }
         DB::table('user') -> insert($data);
