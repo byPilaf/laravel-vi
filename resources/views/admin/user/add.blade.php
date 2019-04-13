@@ -74,7 +74,7 @@
 		<label class="form-label col-xs-4 col-sm-3">性别：</label>
 		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 			<div class="radio-box">
-				<input name="gender" type="radio" id="sex-1">
+				<input name="gender" type="radio" id="sex-1" value="男">
 				<label for="sex-1" value="男">男</label>
 			</div>
 			<div class="radio-box">
@@ -91,7 +91,7 @@
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户类型：</label>
 		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 			<div class="radio-box">
-				<input name="type" type="radio" id="type-1" checked>
+				<input name="type" type="radio" value="1" id="type-1" checked>
 				<label for="type-1" value="1">类型一</label>
 			</div>
 			<div class="radio-box">

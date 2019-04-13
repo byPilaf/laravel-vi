@@ -26,7 +26,7 @@
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
 		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 			<div class="radio-box">
-				<input name="gender" type="radio" id="sex-1">
+				<input name="gender" type="radio" id="sex-1" value="男">
 				<label for="sex-1" value="男">男</label>
 			</div>
 			<div class="radio-box">

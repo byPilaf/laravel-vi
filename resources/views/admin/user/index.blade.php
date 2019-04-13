@@ -11,11 +11,11 @@
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="80">ID</th>
-				<th width="80">用户头像</th>
-				<th width="100">用户名</th>
 				<th width="90">手机</th>
+				<th width="80">用户账户</th>
+				<th width="100">用户昵称</th>
 				<th width="150">邮箱</th>
-				<th width="130">加入时间</th>
+				<th width="130">用户类型</th>
 				<th width="70">状态</th>
 				<th width="100">操作</th>
 			</tr>
@@ -25,11 +25,11 @@
 			<tr class="text-c">
 				<td><input type="checkbox" value="1" name=""></td>
 				<td>{{$val -> id}}</td>
-				<td><img style="width:50px" src="{{ $val -> avatarUrl }}" alt=""></td>
-				<td>{{$val -> name}}</td>
 				<td>{{$val -> mobile}}</td>
+				<td>{{$val -> membername}}</td>
+				<td>{{$val -> name}}</td>
 				<td>{{$val -> email}}</td>
-				<td>{{$val -> created_at}}</td>
+				<td>{{$val -> type}}</td>
 				<td class="td-status">
 				@if($val -> status == '1')
 				<span class="label radius">已停用</span>

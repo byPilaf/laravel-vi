@@ -20,29 +20,6 @@ class UserController extends Controller
         return view('admin.user.index',compact('data'));
     }
 
-    /**
-     * 检查表单信息
-     */
-    private function checkPost($request)
-    {
-             //post添加检查
-             $this -> validate($request,[
-                'name' => 'max:20|unique:user,name',
-                'mobile' => 'required|numeric|unique:user,mobile',
-                'password' => 'required|min:6',
-                'password2' => 'required|min:6|same:password',
-                'email' => 'required|email',     
-            ],[
-                //翻译的提示信息
-                'name.max' => '会员名称 长度大于20', 
-                'name.unique' => '会员名称 已存在',
-                'mobile.unique' => '会员手机号 已存在', 
-                'password2.same' => '确认密码 错误',
-                'password2.required' => '确认密码 不能为空',
-                'password2.min' => '确认密码 长度小于6',
-            ]);
-    }
-
     //根据地区id获取下属行政区划
     public function getAreaById(Request $request)
     {
@@ -60,7 +37,23 @@ class UserController extends Controller
         if($request -> isMethod('post'))
         {
            
-            $this -> checkPost($request);
+            //检查表单信息
+            $this -> validate($request,[
+                'name' => 'max:20|unique:user,name',
+                'mobile' => 'required|numeric|unique:user,mobile',
+                'membername' => 'required|numeric|unique:user,membername',
+                'password' => 'required|min:6',
+                'password2' => 'required|min:6|same:password',
+                'email' => 'required|email|unique:user,membername',     
+            ],[
+                //翻译的提示信息
+                'name.max' => '会员名称 长度大于20', 
+                'name.unique' => '会员名称 已存在',
+                'mobile.unique' => '会员手机号 已存在', 
+                'password2.same' => '确认密码 错误',
+                'password2.required' => '确认密码 不能为空',
+                'password2.min' => '确认密码 长度小于6',
+            ]);
             //获取表单信息
             $data = $request -> only('mobile','membername','password','name','email','country_id','province_id','city_id','county_id','gender','type','avatarUrl');
             $data['password'] = bcrypt($data['password']); //加密密码
@@ -97,7 +90,7 @@ class UserController extends Controller
         {
             //post添加
             //获取表单信息
-            $data = $request -> only('email','mobile','name','avatarUrl');
+            $data = $request -> only('mobile','membername','name','email','country_id','province_id','city_id','county_id','gender','type','avatarUrl');
             $data['updated_at'] = date('Y-m-d H:i:s'); //修改时间
             $request = User::where('id',$id) -> update($data);//插入数据
             
@@ -116,7 +109,13 @@ class UserController extends Controller
         {
             //get请求页面
             $data = User::find($id);
-            return view('admin.user.edit',compact('data'));
+            //查询国家数据
+            $country = DB::table('area') -> where('pid','0') -> get();
+            $province = DB::table('area') -> where('pid',$data['country_id']) -> get();
+            $city = DB::table('area') -> where('pid',$data['province_id']) -> get();
+            $county = DB::table('area') -> where('pid',$data['city_id']) -> get();
+            
+            return view('admin.user.edit',compact('data','country','province','city','county'));
         }
         
     }
