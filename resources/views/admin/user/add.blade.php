@@ -2,6 +2,8 @@
 <title>添加用户</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
+<!-- 载入webuploader.css文件 -->
+<link rel="stylesheet" type="text/css" href="/admin/webuploader/webuploader.css">
 </head>
 <body>
 <article class="page-container">
@@ -100,11 +102,15 @@
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">头像：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">
-				<input class="input-text upload-url" type="text" name="uploadfile" id="uploadfile" readonly nullmsg="请添加附件！" style="width:200px">
-				<a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>
-				<input type="file" multiple name="file-2" class="input-file">
-				</span> </div>
+			<div class="formControls col-xs-8 col-sm-9"> 
+				<div id="uploader-demo">
+					<!--用来存放item-->
+					<div id="fileList" class="uploader-list"></div>
+					<div id="filePicker">选择图片</div>
+					<!-- 隐藏域存放头像地址 -->
+					<input type="hidden" name="avatarUrl" id="avatarUrl" value="">
+				</div>
+			</div>
 		</div>
 		{{csrf_field()}}
 		<div class="row cl">
@@ -120,8 +126,122 @@
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/admin/webuploader/webuploader.min.js"></script>
 <script type="text/javascript">
 $(function(){
+	
+	var $ = jQuery,
+	$list = $('#fileList'),
+	// 优化retina, 在retina下这个值是2
+	ratio = window.devicePixelRatio || 1,
+
+	// 缩略图大小
+	thumbnailWidth = 100 * ratio,
+	thumbnailHeight = 100 * ratio,
+
+	// Web Uploader实例
+	uploader;
+
+    // 初始化Web Uploader
+    uploader = WebUploader.create({
+
+		//追加自定义的参数
+		formData: {_token:"{{csrf_token()}}"},
+
+        // 自动上传。
+        auto: true,
+
+        // swf文件路径
+        swf: '/admin/webuploader/Uploader.swf',
+
+        // 文件接收服务端。
+        server: "{{ route('webuploader') }}",
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#filePicker',
+
+        // 只允许选择文件，可选。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+
+    // 当有文件添加进来的时候
+    uploader.on( 'fileQueued', function( file ) {
+        var $li = $(
+                '<div id="' + file.id + '" class="file-item thumbnail">' +
+                    '<img>' +
+                    '<div class="info">' + file.name + '</div>' +
+                '</div>'
+                ),
+            $img = $li.find('img');
+			//删除之前上传的图片预览
+			$('.thumbnail').remove();
+        $list.append( $li );
+
+        // 创建缩略图
+        uploader.makeThumb( file, function( error, src ) {
+            if ( error ) {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'src', src );
+        }, thumbnailWidth, thumbnailHeight );
+    });
+
+    // 文件上传过程中创建进度条实时显示。
+    uploader.on( 'uploadProgress', function( file, percentage ) {
+        var $li = $( '#'+file.id ),
+            $percent = $li.find('.progress span');
+
+        // 避免重复创建
+        if ( !$percent.length ) {
+            $percent = $('<p class="progress"><span></span></p>')
+                    .appendTo( $li )
+                    .find('span');
+        }
+
+        $percent.css( 'width', percentage * 100 + '%' );
+    });
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	// 第二个参数是ajax的返回值
+    uploader.on( 'uploadSuccess', function( file , response ) {
+		$( '#'+file.id ).addClass('upload-state-done');
+		//写入隐藏域
+		if(response.code == 0)
+		{
+			layer.msg(response.msg,{icon:1,time:1500});
+			$('#avatarUrl').val(response.filepath);
+		}else{
+			layer.msg(response.msg,{icon:2,time:1500});
+		}
+    });
+
+    // 文件上传失败，现实上传出错。
+    uploader.on( 'uploadError', function( file ) {
+        var $li = $( '#'+file.id ),
+            $error = $li.find('div.error');
+
+        // 避免重复创建
+        if ( !$error.length ) {
+            $error = $('<div class="error"></div>').appendTo( $li );
+        }
+
+        $error.text('上传失败');
+    });
+
+    // 完成上传完了，成功或者失败，先删除进度条。
+    uploader.on( 'uploadComplete', function( file ) {
+        $( '#'+file.id ).find('.progress').remove();
+    });
+
+	
+
 	//jQuery四级联动操作
 	//jQuery的联动二级
 	$('select[name=country_id]').change(function(){

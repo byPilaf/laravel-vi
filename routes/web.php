@@ -24,6 +24,9 @@ Route::post('admin/login/check','Admin\publicController@check') -> name('admin_l
 //后台分组
 Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], function () {
 
+    //后台文件上传
+    Route::post('uploader/webuploader','Admin\UploaderController@webuploader')->name('webuploader'); //后台上传头像
+
     //后台首页
     Route::group(['prefix' => 'index'],function(){
         Route::get('','Admin\IndexController@index') -> name('admin_index'); //首页框架

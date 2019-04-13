@@ -62,9 +62,8 @@ class UserController extends Controller
            
             $this -> checkPost($request);
             //获取表单信息
-            $data = $request -> only('mobile','membername','password','name','email','country_id','province_id','city_id','county_id','gender','type');
+            $data = $request -> only('mobile','membername','password','name','email','country_id','province_id','city_id','county_id','gender','type','avatarUrl');
             $data['password'] = bcrypt($data['password']); //加密密码
-            $data['avatarUrl'] = "/uploads/useravatar/avatar.png"; //头像地址
             $data['created_at'] = date('Y-m-d H:i:s'); //添加时间
 
             $request = User::insert($data);//插入数据
