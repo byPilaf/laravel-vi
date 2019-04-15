@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\DB;
 //引入模型
 use App\Model\User;
-use Illuminate\Support\Facades\DB;
+//数据验证
+use Illuminate\Validation\Rule;
+//引入Excel
+use Excel;
+// use Exporter;
 
 class UserController extends Controller
 {
@@ -18,6 +22,56 @@ class UserController extends Controller
         $data = User::all();
         //展示视图
         return view('admin.user.index',compact('data'));
+    }
+
+    //查看会员详情
+    public function page(Request $request)
+    {
+        //获取id
+        $id = (int) $request -> get('id');
+        $user = User::find($id);
+        //获取地址
+        $area['country'] = DB::table('area') -> where('id',$user['country_id']) -> value('area');
+        $area['province'] = DB::table('area') -> where('id',$user['province_id']) -> value('area');
+        $area['city'] = DB::table('area') -> where('id',$user['city_id']) -> value('area');
+        $area['county'] = DB::table('area') -> where('id',$user['county_id']) -> value('area');
+
+        return view('admin.user.page',compact('user','area'));
+    }
+
+    //会员导出Excel
+    public function export() 
+    {
+        //查询用户表
+        $data = User::select('id','mobile','username','email','gender','name');
+        $cellDate = ['id','手机','账户名','电子邮件','性别','昵称'];
+
+        //循环
+        foreach($data as $value)
+        {   
+            $cellDate[] = [
+                $value -> id,
+                $value -> mobile,
+                $value -> membername,
+                $value -> email,
+                $value -> gender,
+                $value -> name,
+            ];
+        }
+       
+        //调用 Excel类创建一个 Excel文件
+        Excel::create('用户导出',function($excel) use ($cellDate){
+            //创建一个工资表
+            $excel -> sheet('用户',function($sheet) use ($cellDate){
+                //将数据写入到行内
+                $sheet -> rows($cellDate);
+            });
+        }) -> export('xls'); //导出文件
+
+        // $excel = Exporter::make('Excel');
+        // $excel->load($data);
+        // $excel->setSerialiser($cellDate);
+        // return $excel->stream('数据表.xls');
     }
 
     //根据地区id获取下属行政区划
@@ -36,7 +90,6 @@ class UserController extends Controller
     {
         if($request -> isMethod('post'))
         {
-           
             //检查表单信息
             $this -> validate($request,[
                 'name' => 'max:20|unique:user,name',
@@ -79,7 +132,6 @@ class UserController extends Controller
             //get请求页面
             return view('admin.user.add',compact('country'));
         }
-        
     }
 
     //会员修改
@@ -89,6 +141,29 @@ class UserController extends Controller
         if($request -> isMethod('post'))
         {
             //post添加
+            //检查表单信息
+            $this -> validate($request,[
+                'name' => [
+                    'max:20',
+                    Rule::unique('user')->ignore($id),
+                ],
+                'mobile' => [
+                    'required',
+                    'numeric',
+                    Rule::unique('user')->ignore($id),
+                ],
+                'membername' => [
+                    'required',
+                    'max:20',
+                    Rule::unique('user')->ignore($id),
+                ],
+                'email' =>[
+                    'required',
+                    'email',
+                    Rule::unique('user')->ignore($id),
+                ],     
+            ]);
+
             //获取表单信息
             $data = $request -> only('mobile','membername','name','email','country_id','province_id','city_id','county_id','gender','type','avatarUrl');
             $data['updated_at'] = date('Y-m-d H:i:s'); //修改时间

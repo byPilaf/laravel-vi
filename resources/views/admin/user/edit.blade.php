@@ -36,7 +36,7 @@
 			<label class="form-label col-xs-4 col-sm-3">地区：</label>
 			<div class="formControls col-xs-8 col-sm-2"> <span class="select-box">
 				<select class="select" size="1" name="country_id">
-					<!-- <option value="" >国家</option> -->
+					<option value="" >国家</option>
 					@foreach($country as $val)
 					<option value="{{$val -> id}}" @if($data -> country_id == $val -> id) selected="selected" @endif>{{$val -> area}}</option>
 					@endforeach
@@ -44,7 +44,7 @@
 				</span> </div>
 			<div class="formControls col-xs-8 col-sm-2"> <span class="select-box">
 				<select class="select" size="1" name="province_id">
-					<!-- <option value="" selected>地区/省份</option> -->
+					<option value="" selected>地区/省份</option>
 					@foreach($province as $val)
 					<option value="{{$val -> id}}" @if($data -> province_id == $val -> id) selected="selected" @endif>{{$val -> area}}</option>
 					@endforeach
@@ -52,7 +52,7 @@
 				</span> </div>
 			<div class="formControls col-xs-8 col-sm-2"> <span class="select-box">
 				<select class="select" size="1" name="city_id">
-					<!-- <option value="" selected>城市</option> -->
+					<option value="" selected>城市</option>
 					@foreach($city as $val)
 					<option value="{{$val -> id}}" @if($data -> city_id == $val -> id) selected="selected" @endif>{{$val -> area}}</option>
 					@endforeach
@@ -60,7 +60,7 @@
 				</span> </div>
 			<div class="formControls col-xs-8 col-sm-2"> <span class="select-box">
 			<select class="select" size="1" name="county_id">
-				<!-- <option value="" selected>区/县</option> -->
+				<option value="" selected>区/县</option>
 				@foreach($county as $val)
 					<option value="{{$val -> id}}" @if($data -> county_id == $val -> id) selected="selected" @endif>{{$val -> area}}</option>
 				@endforeach

@@ -4,28 +4,32 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="member_add('添加用户','{{route('admin_user_add')}}','','610')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> <span class="r">共有数据：<strong>{{$data -> count()}}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span style="width:208px" class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+		<a href="javascript:;" onclick="member_add('添加用户','{{route('admin_user_add')}}','','610')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> 
+		<a href="javascript:;" onclick="export_excel()" class="btn btn-success radius"><i class="Hui-iconfont">&#xe644;</i> 导出到 Excel</a></span> 
+		<span class="r">共有数据：<strong>{{$data -> count()}}</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
-				<th width="80">ID</th>
+				<th width="40">ID</th>
 				<th width="90">手机</th>
 				<th width="80">用户账户</th>
 				<th width="100">用户昵称</th>
 				<th width="150">邮箱</th>
-				<th width="130">用户类型</th>
+				<th width="40">用户类型</th>
 				<th width="70">状态</th>
-				<th width="100">操作</th>
+				<th width="70">操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach($data as $val)
 			<tr class="text-c">
-				<td><input type="checkbox" value="1" name=""></td>
+				<td><input type="checkbox" value="{{$val -> id}}" name="del_id[]"></td>
 				<td>{{$val -> id}}</td>
-				<td>{{$val -> mobile}}</td>
+				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('{{$val -> membername}}','{{route('admin_user_page')}}','{{$val -> id}}','500','600')">{{$val -> mobile}}</u></td>
 				<td>{{$val -> membername}}</td>
 				<td>{{$val -> name}}</td>
 				<td>{{$val -> email}}</td>
@@ -77,9 +81,21 @@ $(function(){
 	});
 	
 });
+
+/*导出Excel */
+function export_excel(){
+	//只需要将跳转地址转到导出页面
+	location.href = "{{route('admin_user_export')}}";
+}
+
 /*用户-添加*/
 function member_add(title,url,w,h){
 	layer_show(title,url,w,h);
+}
+
+/*用户-查看*/
+function member_show(title,url,id,w,h){
+	layer_show(title,url+'?id='+id,w,h);
 }
 
 /*用户-停用*/
