@@ -63,6 +63,21 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        //七牛云存储
+        'qiniu' => [
+            'driver'  => 'qiniu',
+            'domains' => [
+                'default'   => 'ppzmrf9cs.bkt.clouddn.com', //你的七牛域名
+                'https'     => '',         //你的HTTPS域名
+                'custom'    => '',     //你的自定义域名
+             ],
+            'access_key'=> 'ARaRi41GOnj4PoS0Ip8XwFp5zpYpyhANnqKDhMSv',  //AccessKey
+            'secret_key'=> 'BGXgGHQAy9cclTNMPaJ88NkD98BUVF3CyxLGLv6G',  //SecretKey
+            'bucket'    => 'project-larave',  //Bucket名字
+            'notify_url'=> '',  //持久化处理回调地址
+            'access' => 'public', //空间访问控制 public 或 private
+        ],
+
     ],
 
 ];

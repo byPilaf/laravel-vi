@@ -26,6 +26,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
 
     //后台文件上传
     Route::post('uploader/webuploader','Admin\UploaderController@webuploader')->name('webuploader'); //后台上传头像
+    //七牛云
+    Route::post('uploader/qiniu','Admin\UploaderController@qiniu')->name('webuploader_qiniu'); //后台上传头像
 
     //后台首页
     Route::group(['prefix' => 'index'],function(){

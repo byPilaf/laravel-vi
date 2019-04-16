@@ -165,7 +165,10 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         //验证码captcha
         Mews\Captcha\CaptchaServiceProvider::class,
+        //Excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        //七牛云存储
+        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
         /*
          * Package Service Providers...
          */
