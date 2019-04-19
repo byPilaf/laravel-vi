@@ -23,7 +23,7 @@ class RoleTableSeeder extends Seeder
             ],
             [
                 'rolename' => '总编辑',
-                'rolename' => '文章管理以及其他'
+                'description' => '文章管理以及其他'
             ],
             [
                 'rolename' => '人事部',
