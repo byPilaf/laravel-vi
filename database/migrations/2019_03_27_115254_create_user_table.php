@@ -21,7 +21,7 @@ class CreateUserTable extends Migration
             $table -> string('name',20) -> nullable() -> comment('用户昵称');
             $table -> string('avatarUrl',255) -> nullable() -> comment('用户头像路径');
             $table -> string('email',40) -> nullable() -> comment('电子邮箱地址'); 
-            $table -> enum('gender',['男','女','保密']) -> nutnull() -> default('3') -> comment('性别');
+            $table -> enum('gender',['男','女','保密']) -> nutnull() -> default('保密') -> comment('性别');
             $table -> tinyInteger('country_id') -> nullable() -> comment('国家id');
             $table -> tinyInteger('province_id') -> nullable() -> comment('省份/地区id');
             $table -> tinyInteger('city_id') -> nullable() -> comment('城市id');
