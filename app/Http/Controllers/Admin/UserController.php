@@ -11,7 +11,6 @@ use App\Model\User;
 use Illuminate\Validation\Rule;
 //引入Excel
 use Excel;
-// use Exporter;
 
 class UserController extends Controller
 {
@@ -68,10 +67,6 @@ class UserController extends Controller
             });
         }) -> export('xls'); //导出文件
 
-        // $excel = Exporter::make('Excel');
-        // $excel->load($data);
-        // $excel->setSerialiser($cellDate);
-        // return $excel->stream('数据表.xls');
     }
 
     //根据地区id获取下属行政区划
@@ -250,4 +245,60 @@ class UserController extends Controller
         }
         return response() -> json($response);
     }
+
+    //查询被删除的会员
+    public function readyDeleteManager()
+    {
+        $data = User::onlyTrashed() -> get();
+        //展示视图
+        return view('admin.user.readyDelete',compact('data'));
+    }
+
+    //彻底删除被删除的会员
+    public function foreverDeleteManager(Request $request)
+    {
+        $id = $request -> only('id');
+        $request = User::where('id',$id) -> forceDelete();
+        //判断是否成功
+        if($request)
+        {
+            $response = ['code' => '0','msg' => '删除成功'];
+        }
+        else
+        {
+            $response = ['code' => '1','msg' => '删除失败'];
+        }
+        return response() -> json($response);
+    }
+
+     //导出被删除的会员Excel
+     public function exportDeleteManager() 
+     {
+         //查询用户表
+         $data = User::onlyTrashed() -> select('id','mobile','membername','email','gender','name')->get();
+         $cellDate[] = ['id','手机','账户名','电子邮件','性别','昵称'];
+ 
+         //循环
+         foreach($data as $value)
+         {   
+             $cellDate[] = [
+                 $value -> id,
+                 $value -> mobile,
+                 $value -> membername,
+                 $value -> email,
+                 $value -> gender,
+                 $value -> name,
+             ];
+         }
+ 
+         //调用 Excel类创建一个 Excel文件
+         Excel::create('被删除的用户导出',function($excel) use ($cellDate){
+             //创建一个工资表
+             $excel -> sheet('被删除的用户',function($sheet) use ($cellDate){
+                 //将数据写入到行内
+                 $sheet -> rows($cellDate);
+             });
+         }) -> export('xls'); //导出文件
+ 
+     }
 }

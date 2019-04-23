@@ -47,6 +47,23 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::any('editPassword','Admin\ManagerController@editPassword') -> name('admin_manager_editPassword');//管理员修改密码
     });
 
+    //权限管理
+    Route::group(['prefix' => 'auth'],function(){
+        Route::get('index','Admin\AuthController@index') -> name('admin_auth_list'); //权限列表展示
+        Route::any('add','Admin\AuthController@add') -> name('admin_auth_add');    //权限添加
+        Route::any('edit','Admin\AuthController@edit') -> name('admin_auth_edit');  //权限编辑
+        Route::post('delete','Admin\AuthController@delete') -> name('admin_auth_delete');//权限删除
+    });
+
+    //角色管理
+    Route::group(['prefix' => 'role'],function(){
+        Route::get('index','Admin\RoleController@index') -> name('admin_role_list'); //角色列表展示
+        Route::any('add','Admin\RoleController@add') -> name('admin_role_add');    //角色添加
+        Route::any('edit','Admin\RoleController@edit') -> name('admin_role_edit');  //角色编辑
+        Route::any('editAuth','Admin\RoleController@editAuth') -> name('admin_role_edit_auth');  //角色权限编辑
+        Route::post('delete','Admin\RoleController@delete') -> name('admin_role_delete');//角色删除
+    });
+
     //会员管理
     Route::group(['prefix' => 'user'],function(){
         Route::get('index','Admin\UserController@index') -> name('admin_user_list'); //会员列表展示
@@ -58,6 +75,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::post('delete','Admin\UserController@delete') -> name('admin_user_delete'); //会员删除
         Route::get('export','Admin\UserController@export') -> name('admin_user_export'); //会员导出
         Route::get('getAreaById','Admin\UserController@getAreaById') -> name('admin_user_getAreaById'); //会员获取地区id
+        Route::get('readyDeleteManager','Admin\UserController@readyDeleteManager') -> name('admin_user_readyDeleteManager'); //被删除的会员
+        Route::post('foreverDeleteManager','Admin\UserController@foreverDeleteManager') -> name('admin_user_foreverDeleteManager'); //彻底删除被删除的会员
+        Route::get('exportDeleteManager','Admin\UserController@exportDeleteManager') -> name('admin_user_exportDeleteManager'); //导出被删除的会员
     });
 
     //文章管理
@@ -76,21 +96,5 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::post('delete','Admin\CommentController@delete');//评论删除
     });
 
-    //权限管理
-    Route::group(['prefix' => 'auth'],function(){
-        Route::get('index','Admin\AuthController@index') -> name('admin_auth_list'); //权限列表展示
-        Route::any('add','Admin\AuthController@add') -> name('admin_auth_add');    //权限添加
-        Route::any('edit','Admin\AuthController@edit') -> name('admin_auth_edit');  //权限编辑
-        Route::post('delete','Admin\AuthController@delete') -> name('admin_auth_delete');//权限删除
-    });
-
-    //角色管理
-    Route::group(['prefix' => 'role'],function(){
-        Route::get('index','Admin\RoleController@index') -> name('admin_role_list'); //角色列表展示
-        Route::any('add','Admin\RoleController@add') -> name('admin_role_add');    //角色添加
-        Route::any('edit','Admin\RoleController@edit') -> name('admin_role_edit');  //角色编辑
-        Route::any('editAuth','Admin\RoleController@editAuth') -> name('admin_role_edit_auth');  //角色权限编辑
-        Route::post('delete','Admin\RoleController@delete') -> name('admin_role_delete');//角色删除
-    });
 });
 
