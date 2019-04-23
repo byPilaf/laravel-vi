@@ -20,7 +20,7 @@ class CreateCommentTable extends Migration
             $table->unsignedInteger('pid') -> notnull() -> default(0) -> comment('父级id,0为顶级评论');          
             $table->unsignedInteger('comment_like_number') -> notnull() -> default(0) -> comment('点赞数');          
             $table->string('comment_content',500) -> notnull() -> comment('评论内容');    
-            $table->enum('status',['1','2','3']) -> notnull() -> default('2') -> comment('状态,1=禁用,2=启用,3=待审核'); 
+            $table->enum('comment_status',['1','2','3']) -> notnull() -> default('2') -> comment('状态,1=禁用,2=启用,3=被举报'); 
             $table->timestamps();
         });
     }

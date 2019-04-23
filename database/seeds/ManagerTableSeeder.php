@@ -26,7 +26,7 @@ class ManagerTableSeeder extends Seeder
                 'email'     =>  $faker -> email,
                 'role_id'   =>  rand(1,6),
                 'created_at'=>  date('Y-m-d H:i:s'),
-                'status'    =>  rand(1,2),
+                'manager_status'    =>  rand(1,2),
             ];
         }
         DB::table('manager') -> insert($data);

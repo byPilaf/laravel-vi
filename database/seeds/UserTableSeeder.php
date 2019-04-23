@@ -24,7 +24,7 @@ class UserTableSeeder extends Seeder
                 'name'      =>     $faker -> name,
                 'avatarUrl' =>     '/uploads/useravatar/avatar.png',
                 'email'     =>     $faker -> email,
-                'status'    =>     rand(1,2),
+                'user_status'    =>     rand(1,2),
                 'gender'    =>     rand(1,3),
                 'type'      =>     rand(1,2),
                 'created_at'=>     date('Y-m-d H:i:s'),

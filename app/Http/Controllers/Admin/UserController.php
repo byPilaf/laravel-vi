@@ -194,7 +194,7 @@ class UserController extends Controller
     public function start(Request $request)
     {
         $id = $request -> only('id');
-        $data['status'] = 2;
+        $data['user_status'] = 2;
         $request = User::where('id',$id) -> update($data);
 
          //判断是否成功
@@ -213,7 +213,7 @@ class UserController extends Controller
     public function stop(Request $request)
     {
         $id = $request -> only('id');
-        $data['status'] = 1;
+        $data['user_status'] = 1;
         $request = User::where('id',$id) -> update($data);
 
          //判断是否成功

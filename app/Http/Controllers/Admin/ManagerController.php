@@ -122,7 +122,7 @@ class ManagerController extends Controller
     public function start(Request $request)
     {
         $id = $request -> only('id');
-        $data['status'] = 2;
+        $data['manager_status'] = 2;
         $request = Manager::where('id',$id) -> update($data);
 
          //判断是否成功
@@ -141,7 +141,7 @@ class ManagerController extends Controller
     public function stop(Request $request)
     {
         $id = $request -> only('id');
-        $data['status'] = 1;
+        $data['manager_status'] = 1;
         $request = Manager::where('id',$id) -> update($data);
 
          //判断是否成功

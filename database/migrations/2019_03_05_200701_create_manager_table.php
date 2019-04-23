@@ -23,7 +23,7 @@ class CreateManagerTable extends Migration
             $table -> unsignedtinyInteger('role_id') -> nullable() -> comment('角色id'); 
             $table -> timestamps();
             $table -> rememberToken();
-            $table -> enum('status',['1','2']) -> notnull()-> default('2') -> comment('状态,1=禁用,2=启用');
+            $table -> enum('manager_status',['1','2']) -> notnull()-> default('2') -> comment('状态,1=禁用,2=启用');
         });
     }
 

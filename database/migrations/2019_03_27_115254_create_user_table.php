@@ -27,7 +27,7 @@ class CreateUserTable extends Migration
             $table -> unsignedtinyInteger('city_id') -> nullable() -> comment('城市id');
             $table -> unsignedtinyInteger('county_id') -> nullable() -> comment('区/县id');
             $table -> enum('type',['1','2']) -> notnull() -> default('1') -> comment('用户类型');
-            $table -> enum('status',['1','2']) -> notnull() -> default('2') -> comment('用户状态,1=停用,2=启用'); 
+            $table -> enum('user_status',['1','2']) -> notnull() -> default('2') -> comment('用户状态,1=停用,2=启用'); 
             $table -> timestamps();
             $table -> rememberToken();
             $table -> softDeletes();

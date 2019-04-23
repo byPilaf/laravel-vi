@@ -20,23 +20,6 @@ class AuthController extends Controller
     /**
      * 检查表单信息
      */
-    private function checkPost($request)
-    {
-        //检查表单信息
-        $this -> validate($request,[
-            'authname' => 'required|unique:auth,authname',
-            'controller' => 'required',
-            'pid' => 'required|numeric',
-            'is_nav' => 'required',
-        ],[
-            'authname.required' => '权限名称不能为空',
-            'authname.unique' => '权限名称已存在', 
-            'controller.required' => '控制器名不能为空',
-            'pid.required' => '请选择父级权限',
-            'pid.numeric' => '输入不合法',
-            'is_nav' => '请选择是否作为列表显示',
-        ]);
-    }
 
     //权限添加
     public function add(Request $request)
@@ -46,13 +29,11 @@ class AuthController extends Controller
             //检查表单信息
             $this -> validate($request,[
                 'authname' => 'required|unique:auth,authname',
-                'controller' => 'required',
                 'pid' => 'required|numeric',
                 'is_nav' => 'required',
             ],[
                 'authname.required' => '权限名称不能为空',
                 'authname.unique' => '权限名称已存在', 
-                'controller.required' => '控制器名不能为空',
                 'pid.required' => '请选择父级权限',
                 'pid.numeric' => '输入不合法',
                 'is_nav' => '请选择是否作为列表显示',
@@ -90,12 +71,10 @@ class AuthController extends Controller
             //检查表单信息
             $this -> validate($request,[
                 'authname' => 'required',
-                'controller' => 'required',
                 'pid' => 'required|numeric',
                 'is_nav' => 'required',
             ],[
                 'authname.required' => '权限名称不能为空',
-                'controller.required' => '控制器名不能为空',
                 'pid.required' => '请选择父级权限',
                 'pid.numeric' => '输入不合法',
                 'is_nav' => '请选择是否作为列表显示',

@@ -35,14 +35,14 @@
 				<td>{{ $val -> rel_role["rolename"]}}</td>
 				<td>{{ $val -> created_at}}</td>
 				<td class="td-status">
-				@if($val -> status == '1')
+				@if($val -> manager_status == '1')
 				<span class="label radius">已停用</span>
 				@else
 				<span class="label label-success radius">已启用</span>
 				@endif
 				</td>
 				<td class="td-manage">
-				@if($val -> status == '2')
+				@if($val -> manager_status == '2')
 					<a style="text-decoration:none" onClick="admin_stop(this,'{{ $val -> id }}')" href="javascript:;" title="停用">
 						<i class="Hui-iconfont">&#xe631;</i>
 					</a> 
