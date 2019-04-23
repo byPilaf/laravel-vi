@@ -43,8 +43,8 @@ class UserController extends Controller
     public function export() 
     {
         //查询用户表
-        $data = User::select('id','mobile','username','email','gender','name');
-        $cellDate = ['id','手机','账户名','电子邮件','性别','昵称'];
+        $data = User::select('id','mobile','membername','email','gender','name')->get();
+        $cellDate[] = ['id','手机','账户名','电子邮件','性别','昵称'];
 
         //循环
         foreach($data as $value)
@@ -58,7 +58,7 @@ class UserController extends Controller
                 $value -> name,
             ];
         }
-       
+
         //调用 Excel类创建一个 Excel文件
         Excel::create('用户导出',function($excel) use ($cellDate){
             //创建一个工资表
