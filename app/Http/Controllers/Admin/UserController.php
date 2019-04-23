@@ -290,7 +290,7 @@ class UserController extends Controller
                  $value -> name,
              ];
          }
- 
+
          //调用 Excel类创建一个 Excel文件
          Excel::create('被删除的用户导出',function($excel) use ($cellDate){
              //创建一个工资表

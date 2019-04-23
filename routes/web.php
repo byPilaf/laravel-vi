@@ -80,20 +80,20 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::get('exportDeleteManager','Admin\UserController@exportDeleteManager') -> name('admin_user_exportDeleteManager'); //导出被删除的会员
     });
 
-    //文章管理
-    Route::group(['prefix' => 'article'],function(){
-        Route::get('index','Admin\ArticleController@index'); //文章列表展示
-        Route::any('add','Admin\ArticleController@add');    //文章添加
-        Route::any('edit','Admin\ArticleController@edit');  //文章编辑
-        Route::post('delete','Admin\ArticleController@delete');//文章删除
-    });
-
     //评论管理
     Route::group(['prefix' => 'comment'],function(){
         Route::get('index','Admin\CommentController@index'); //评论列表展示
         Route::any('add','Admin\CommentController@add');    //评论添加
         Route::any('edit','Admin\CommentController@edit');  //评论编辑
         Route::post('delete','Admin\CommentController@delete');//评论删除
+    });
+
+    //文章管理
+    Route::group(['prefix' => 'article'],function(){
+        Route::get('index','Admin\ArticleController@index'); //文章列表展示
+        Route::any('add','Admin\ArticleController@add');    //文章添加
+        Route::any('edit','Admin\ArticleController@edit');  //文章编辑
+        Route::post('delete','Admin\ArticleController@delete');//文章删除
     });
 
 });

@@ -14,8 +14,8 @@ class CreateRoleAuthTable extends Migration
     public function up()
     {
         Schema::create('role_auth', function (Blueprint $table) {
-            $table -> tinyInteger('role_id') -> nullable() -> comment('角色id');
-            $table -> tinyInteger('auth_id') -> nullable() -> comment('权限id');
+            $table -> unsignedtinyInteger('role_id') -> nullable() -> comment('角色id');
+            $table -> unsignedtinyInteger('auth_id') -> nullable() -> comment('权限id');
         });
     }
 

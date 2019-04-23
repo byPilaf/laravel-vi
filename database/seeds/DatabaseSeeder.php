@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             ManagerTableSeeder::class,
             RoleTableSeeder::class,
             UserTableSeeder::class,
+            AuthTableSeeder::class,
         ]);
     }
 }
