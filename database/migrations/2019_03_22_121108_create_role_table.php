@@ -18,6 +18,9 @@ class CreateRoleTable extends Migration
             $table -> string('rolename',20) -> notnull() -> comment('角色名称');
             $table -> string('description',20) -> nullable() -> comment('角色说明');
         });
+
+        //表注释
+        DB::statement("ALTER TABLE 'role' comment'管理员角色表'");
     }
 
     /**

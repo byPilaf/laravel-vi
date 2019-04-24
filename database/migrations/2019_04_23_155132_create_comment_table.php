@@ -23,6 +23,8 @@ class CreateCommentTable extends Migration
             $table->enum('comment_status',['1','2','3']) -> notnull() -> default('2') -> comment('状态,1=禁用,2=启用,3=被举报'); 
             $table->timestamps();
         });
+        //表注释
+        DB::statement("ALTER TABLE 'comment' comment'评论表'");
     }
 
     /**

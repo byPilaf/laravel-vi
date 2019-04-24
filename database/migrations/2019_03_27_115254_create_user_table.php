@@ -32,6 +32,9 @@ class CreateUserTable extends Migration
             $table -> rememberToken();
             $table -> softDeletes();
         });
+
+        //表注释
+        DB::statement("ALTER TABLE 'user' comment'用户表'");
     }
 
     /**

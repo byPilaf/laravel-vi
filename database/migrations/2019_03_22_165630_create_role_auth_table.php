@@ -17,6 +17,9 @@ class CreateRoleAuthTable extends Migration
             $table -> unsignedtinyInteger('role_id') -> nullable() -> comment('角色id');
             $table -> unsignedtinyInteger('auth_id') -> nullable() -> comment('权限id');
         });
+
+        //表注释
+        DB::statement("ALTER TABLE 'role_auth' comment'管理员角色表与管理员权限对应表'");
     }
 
     /**

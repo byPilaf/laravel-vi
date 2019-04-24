@@ -21,6 +21,9 @@ class CreateAuthTable extends Migration
             $table -> unsignedtinyInteger('pid') -> notnull() -> comment('父级权限id');
             $table -> enum('is_nav',['1','2']) -> notnull() -> comment('是否作为菜单显示,1=是,2=否');
         });
+
+        //表注释
+        DB::statement("ALTER TABLE 'auth' comment'管理员权限表'");
     }
 
     /**

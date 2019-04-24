@@ -23,6 +23,9 @@ class CreateArticleTable extends Migration
             $table->enum('article_status',['1','2','3']) -> notnull() -> default('3') -> comment('状态,1=禁用,2=启用,3=待审核');      
             $table->timestamps();
         });
+
+        //表注释
+        DB::statement("ALTER TABLE 'article' comment'文章表'");
     }
 
     /**
