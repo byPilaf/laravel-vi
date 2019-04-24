@@ -34,7 +34,7 @@ class CreateUserTable extends Migration
         });
 
         //表注释
-        DB::statement("ALTER TABLE 'user' comment'用户表'");
+        DB::statement("ALTER TABLE `user` comment '用户表'");
     }
 
     /**

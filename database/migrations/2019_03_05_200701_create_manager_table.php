@@ -26,7 +26,7 @@ class CreateManagerTable extends Migration
             $table -> enum('manager_status',['1','2']) -> notnull()-> default('2') -> comment('状态,1=禁用,2=启用');
         });
         //表注释
-        DB::statement("ALTER TABLE 'manager' comment'管理员表'");
+        DB::statement("ALTER TABLE `manager` comment '管理员表'");
     }
 
     /**

@@ -25,7 +25,7 @@ class CreateArticleTable extends Migration
         });
 
         //表注释
-        DB::statement("ALTER TABLE 'article' comment'文章表'");
+        DB::statement("ALTER TABLE `article` comment '文章表'");
     }
 
     /**

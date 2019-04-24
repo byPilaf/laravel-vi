@@ -20,7 +20,7 @@ class CreateRoleTable extends Migration
         });
 
         //表注释
-        DB::statement("ALTER TABLE 'role' comment'管理员角色表'");
+        DB::statement("ALTER TABLE `role` comment '角色表'");
     }
 
     /**

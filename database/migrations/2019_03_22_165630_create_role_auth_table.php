@@ -19,7 +19,7 @@ class CreateRoleAuthTable extends Migration
         });
 
         //表注释
-        DB::statement("ALTER TABLE 'role_auth' comment'管理员角色表与管理员权限对应表'");
+        DB::statement("ALTER TABLE `role_auth` comment '管理员角色表与管理员权限对应表'");
     }
 
     /**

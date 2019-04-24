@@ -24,7 +24,7 @@ class CreateCommentTable extends Migration
             $table->timestamps();
         });
         //表注释
-        DB::statement("ALTER TABLE 'comment' comment'评论表'");
+        DB::statement("ALTER TABLE `comment` comment '评论表'");
     }
 
     /**
