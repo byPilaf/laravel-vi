@@ -17,10 +17,6 @@ class AuthController extends Controller
         return view('admin.auth.index',compact('data'));
     }
 
-    /**
-     * 检查表单信息
-     */
-
     //权限添加
     public function add(Request $request)
     {

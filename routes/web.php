@@ -82,10 +82,20 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
 
     //文章管理
     Route::group(['prefix' => 'article'],function(){
-        Route::get('index','Admin\ArticleController@index'); //文章列表展示
-        Route::any('add','Admin\ArticleController@add');    //文章添加
-        Route::any('edit','Admin\ArticleController@edit');  //文章编辑
-        Route::post('delete','Admin\ArticleController@delete');//文章删除
+        Route::get('index','Admin\ArticleController@index') -> name('admin_article_list'); //文章列表展示
+        Route::any('add','Admin\ArticleController@add') -> name('admin_article_add');    //文章添加
+        Route::any('edit','Admin\ArticleController@edit') -> name('admin_article_edit');  //文章编辑
+        Route::post('delete','Admin\ArticleController@delete') -> name('admin_article_delete'); //文章删除
+        Route::post('start','Admin\ArticleController@start') -> name('admin_article_start');//文章启用
+        Route::post('stop','Admin\ArticleController@stop') -> name('admin_article_stop');//文章停用
+    });
+
+    //文章类别
+    Route::group(['prefix' => 'articleType'],function(){
+        Route::get('index','Admin\ArticleTypeController@index') -> name('admin_articleType_list'); //文章类别列表展示
+        Route::any('add','Admin\ArticleTypeController@add') -> name('admin_articleType_add');    //文章类别添加
+        Route::any('edit','Admin\ArticleTypeController@edit') -> name('admin_articleType_edit');  //文章类别编辑
+        Route::post('delete','Admin\ArticleTypeController@delete') -> name('admin_articleType_delete'); //文章类别删除
     });
 
     //评论管理

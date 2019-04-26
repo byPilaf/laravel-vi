@@ -18,16 +18,16 @@ class UserTableSeeder extends Seeder
         for($i= 0;$i < 100; $i++)
         {
             $data[] = [
-                'mobile'    =>     $faker -> phoneNumber,
-                'membername'=>     $faker -> username,
-                'password'  =>     bcrypt('123456'),
-                'name'      =>     $faker -> name,
-                'avatarUrl' =>     '/uploads/useravatar/avatar.png',
-                'email'     =>     $faker -> email,
-                'user_status'    =>     rand(1,2),
-                'gender'    =>     rand(1,3),
-                'type'      =>     rand(1,2),
-                'created_at'=>     date('Y-m-d H:i:s'),
+                'mobile'        =>     $faker -> phoneNumber,
+                'membername'    =>     $faker -> username,
+                'password'      =>     bcrypt('123456'),
+                'name'          =>     $faker -> name,
+                'avatarUrl'     =>     '/uploads/useravatar/avatar.png',
+                'email'         =>     $faker -> email,
+                'user_status'   =>   rand(1,2),
+                'gender'        =>     rand(1,3),
+                'type'          =>     rand(1,2),
+                'created_at'    =>     date('Y-m-d H:i:s'),
             ];
         }
         DB::table('user') -> insert($data);

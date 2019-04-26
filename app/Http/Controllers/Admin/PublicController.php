@@ -35,7 +35,7 @@ class PublicController extends Controller
 
         //认证身份合法性
         $data = $request -> only(['username','password']); //截取提交的用户名与密码
-        $data['status'] = '2'; //默认状态正常登录
+        $data['manager_status'] = '2'; //默认状态正常登录
         // Auth认证
         if(Auth::guard('admin') -> attempt($data,$request -> get('online'))) //online是否保持登录状态
         {
