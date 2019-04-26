@@ -271,34 +271,33 @@ class UserController extends Controller
         return response() -> json($response);
     }
 
-     //导出被删除的会员Excel
-     public function exportDeleteManager() 
-     {
-         //查询用户表
-         $data = User::onlyTrashed() -> select('id','mobile','membername','email','gender','name')->get();
-         $cellDate[] = ['id','手机','账户名','电子邮件','性别','昵称'];
- 
-         //循环
-         foreach($data as $value)
-         {   
-             $cellDate[] = [
-                 $value -> id,
-                 $value -> mobile,
-                 $value -> membername,
-                 $value -> email,
-                 $value -> gender,
-                 $value -> name,
-             ];
-         }
+    //导出被删除的会员Excel
+    public function exportDeleteManager() 
+    {
+        //查询用户表
+        $data = User::onlyTrashed() -> select('id','mobile','membername','email','gender','name')->get();
+        $cellDate[] = ['id','手机','账户名','电子邮件','性别','昵称'];
 
-         //调用 Excel类创建一个 Excel文件
-         Excel::create('被删除的用户导出',function($excel) use ($cellDate){
-             //创建一个工资表
-             $excel -> sheet('被删除的用户',function($sheet) use ($cellDate){
-                 //将数据写入到行内
-                 $sheet -> rows($cellDate);
-             });
-         }) -> export('xls'); //导出文件
- 
-     }
+        //循环
+        foreach($data as $value)
+        {   
+            $cellDate[] = [
+                $value -> id,
+                $value -> mobile,
+                $value -> membername,
+                $value -> email,
+                $value -> gender,
+                $value -> name,
+            ];
+        }
+
+        //调用 Excel类创建一个 Excel文件
+        Excel::create('被删除的用户导出',function($excel) use ($cellDate){
+            //创建一个工资表
+            $excel -> sheet('被删除的用户',function($sheet) use ($cellDate){
+                //将数据写入到行内
+                $sheet -> rows($cellDate);
+            });
+        }) -> export('xls'); //导出文件
+    }
 }
