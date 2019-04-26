@@ -18,6 +18,15 @@ class ArticleController extends Controller
         return view('admin.article.index',compact('data'));
     }
 
+    //查看文章详情
+    public function page(Request $request)
+    {
+        //获取id
+        $id = (int) $request -> get('id');
+        $article = Article::find($id);
+        return view('admin.article.page',compact('article'));
+    }
+
     //文章添加
     public function add(Request $request)
     {
@@ -31,6 +40,7 @@ class ArticleController extends Controller
                 'type_id' => 'required|numeric',
                 'read_num' => 'numeric',
                 'favorites_num' => 'numeric',
+                'article_sort' => 'numeric',
             ],[
                 //翻译的提示信息
                 'title.required' => '文章标题 不能为空', 
@@ -38,9 +48,10 @@ class ArticleController extends Controller
                 'article_content.required' => '文章内容 不能为空',
                 'read_num.numeric' => '阅读数 必须为数字',
                 'favorites_num.numeric' => '收藏数 必须为数字',
+                'article_sort.numeric' => '排序值 必须为数字',
             ]);
             //获取表单信息
-            $data = $request -> only('title','author_id','article_content','type_id','read_num','favorites_num');
+            $data = $request -> only('title','author_id','article_content','type_id','read_num','favorites_num','article_sort');
             $data['status'] = 3; //文章状态
             $data['created_at'] = date('Y-m-d H:i:s'); //添加时间
 
@@ -83,6 +94,7 @@ class ArticleController extends Controller
             'type_id' => 'required|numeric',
             'read_num' => 'numeric',
             'favorites_num' => 'numeric',
+            'article_sort' => 'numeric',
         ],[
             //翻译的提示信息
             'title.required' => '文章标题 不能为空', 
@@ -90,9 +102,10 @@ class ArticleController extends Controller
             'article_content.required' => '文章内容 不能为空',
             'read_num.numeric' => '阅读数 必须为数字',
             'favorites_num.numeric' => '收藏数 必须为数字',
+            'article_sort.numeric' => '排序值 必须为数字',
         ]);
             //获取表单信息
-            $data = $request -> only('title','author_id','article_content','type_id','read_num','favorites_num');
+            $data = $request -> only('title','author_id','article_content','type_id','read_num','favorites_num','article_sort');
             $data['status'] = 3; //文章重新审核
             $data['updated_at'] = date('Y-m-d H:i:s'); //修改时间
             $request = Article::where('id',$id) -> update($data);//插入数据
