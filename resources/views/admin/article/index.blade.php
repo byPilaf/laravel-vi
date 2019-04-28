@@ -49,7 +49,13 @@
 					<td>{{$val->rel_type->typename}}</td>
 					<td>{{$val->read_num}}</td>
 					<td>{{$val->favorites_num}}</td>
-					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_show('查看评论','{{route('admin_comment_page')}}','{{$val -> id}}')" title="查看评论">{{$val->rel_comment->count()}}</u></td>
+					<td class="text-l">
+					@if($val->is_comment === '2')
+						<u style="cursor:pointer" class="text-primary" onClick="article_show('查看评论','{{route('admin_comment_page')}}','{{$val -> id}}')" title="查看评论">{{$val->rel_comment->count()}}</u>
+					@else
+						<span class="label radius">不允许评论</span>	
+					@endif
+					</td>
 					<td>{{$val->created_at}}</td>
 					<td class="td-status">
 					@switch($val->article_status)
