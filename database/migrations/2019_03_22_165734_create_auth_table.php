@@ -23,7 +23,7 @@ class CreateAuthTable extends Migration
         });
 
         //表注释
-        DB::statement("ALTER TABLE `auth` comment' 管理员权限表'");
+        DB::statement("ALTER TABLE `auth` comment '管理员权限表'");
     }
 
     /**
