@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 //引入模型
 use App\Model\ArticleType;
+//数据验证
+use Illuminate\Validation\Rule;
 class ArticleTypeController extends Controller
 {
     //文章类别列表展示
@@ -28,7 +30,7 @@ class ArticleTypeController extends Controller
                 'typename.unique' => '文章类别名称已存在', 
             ]);
             //获取表单信息
-            $data = $request -> only('typename');
+            $data = $request -> only('typename','pid','display');
             //添加数据
             $reques = ArticleType::insert($data);
 
@@ -45,7 +47,9 @@ class ArticleTypeController extends Controller
         }
         else
         {
-            return view('admin.articleType.add');
+            //获取类别
+            $parents = ArticleType::all();
+            return view('admin.articleType.add',compact('parents'));
         }
     }
 
@@ -65,7 +69,7 @@ class ArticleTypeController extends Controller
                 'typename.required' => '文章类别名称不能为空',
             ]);
             //获取表单信息
-            $data = $request -> only('typename');
+            $data = $request -> only('typename','pid','display');
             //添加数据
             $request = ArticleType::where('id',$id) -> update($data);
 
@@ -82,8 +86,10 @@ class ArticleTypeController extends Controller
         }
         else
         {
-            $data = ArticleType::where('id',$id) -> get();
-            return view('admin.articleType.edit',compact('data'));
+            //获取其他类别
+            $parents = ArticleType::where('id','<>',$id) -> get();
+            $data = ArticleType::find($id);
+            return view('admin.articleType.edit',compact('data','parents'));
         }
     }
 

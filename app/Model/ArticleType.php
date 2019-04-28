@@ -15,7 +15,7 @@ class ArticleType extends Model
      */
     public function parentType()
     {
-        return $this -> hasOne('App\Model\Auth','id','pid');
+        return $this -> hasOne('App\Model\ArticleType','id','pid');
     }
 
 }

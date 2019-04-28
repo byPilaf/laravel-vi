@@ -5,9 +5,33 @@
 <article class="page-container">
 	<form class="form form-horizontal" action="" method="post" id="form-admin-add">
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>文章类别名称：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>文章分类名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" class="input-text" value="" placeholder="" id="typename" name="typename">
+		</div>
+	</div>
+  <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>父级文章分类：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="select" name="pid" size="1">
+				<option value="0">作为顶级文章分类</option>
+				@foreach($parents as $nameval)
+				<option value="{{ $nameval -> id }}">{{ $nameval -> typename }}</option>
+				@endforeach
+			</select>
+			</span> </div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>作为导航显示：</label>
+		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			<div class="radio-box">
+				<input name="display" type="radio" id="display-1" value="1" checked>
+				<label for="display-1" value="1">显示</label>
+			</div>
+			<div class="radio-box">
+				<input type="radio" id="display-2" name="display" value="2">
+				<label for="display-2" value="2">隐藏</label>
+			</div>
 		</div>
 	</div>
 	{{csrf_field()}}

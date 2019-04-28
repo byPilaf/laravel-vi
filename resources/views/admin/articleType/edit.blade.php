@@ -1,60 +1,39 @@
 ﻿@include('admin.header')
-<title>添加权限 - 权限管理</title>
+<title>添加文章分类 - 文章分类管理</title>
 </head>
 <body>
 <article class="page-container">
-	@foreach($data as $val)
 	<form class="form form-horizontal" action="" method="post" id="form-admin-add">
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限名称：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>文章分类名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="{{ $val -> authname }}" placeholder="" id="authname" name="authname">
+			<input type="text" class="input-text" value="{{ $data -> typename }}" placeholder="" id="typename" name="typename">
 		</div>
 	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>控制器名：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="{{ $val -> controller }}" id="controller" name="controller">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">方法名：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" id="action" name="action" value="{{ $val -> action }}">
-		</div>
-  </div>
   <div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>父级权限：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>父级文章分类：</label>
 		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
 			<select class="select" name="pid" size="1">
-				
-				<option value="0" @if($val -> pid == 0) selected="selected" @endif>作为顶级权限</option>
+				<option value="0" @if($data -> pid == 0) selected="selected" @endif>作为顶级文章分类</option>
 				@foreach($parents as $nameval)
-				<option @if($val -> pid == $nameval -> id) selected="selected" @endif value="{{ $nameval -> id }}">{{ $nameval -> authname }}</option>
+				<option @if($data -> pid == $nameval -> id) selected="selected" @endif value="{{ $nameval -> id }}">{{ $nameval -> typename }}</option>
 				@endforeach
 			</select>
 			</span> </div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>作为导航：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>作为导航显示：</label>
 		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 			<div class="radio-box">
-				<input name="is_nav" type="radio" id="is_nav-1" value="1" @if($val -> is_nav == "1") checked @endif>
-				<label for="is_nav-1" value="1">是</label>
+				<input name="display" type="radio" id="display-1" value="1" @if($data -> display == "显示") checked @endif>
+				<label for="display-1" value="1">是</label>
 			</div>
 			<div class="radio-box">
-				<input type="radio" id="is_nav-2" name="is_nav" value="2" @if($val -> is_nav == "2") checked @endif>
-				<label for="is_nav-2" value="2">否</label>
+				<input type="radio" id="display-2" name="display" value="2" @if($data -> display == "隐藏") checked @endif>
+				<label for="display-2" value="2">否</label>
 			</div>
 		</div>
 	</div>
-	<!-- <div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">备注：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)"></textarea>
-			<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
-		</div>
-	</div> -->
 	{{csrf_field()}}
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
@@ -62,7 +41,6 @@
 		</div>
 	</div>
 	</form>
-	@endforeach
 </article>
 @include('admin.footer')
 <!--请在下方写此页面业务相关的脚本-->
@@ -79,13 +57,7 @@ $(function(){
 	
 	$("#form-admin-add").validate({
 		rules:{
-			authname:{
-				required:true,
-			},
-			controller:{
-				required:true,
-			},
-			is_nav:{
+			typename:{
 				required:true,
 			},
 		},
