@@ -84,6 +84,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
     //文章管理
     Route::group(['prefix' => 'article'],function(){
         Route::get('index','Admin\ArticleController@index') -> name('admin_article_list'); //文章列表展示
+        Route::get('review','Admin\ArticleController@review') -> name('admin_article_review_list');//待审核文章列表
         Route::any('add','Admin\ArticleController@add') -> name('admin_article_add');    //文章添加
         Route::any('edit','Admin\ArticleController@edit') -> name('admin_article_edit');  //文章编辑
         Route::post('delete','Admin\ArticleController@delete') -> name('admin_article_delete'); //文章删除
@@ -91,7 +92,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::post('stop','Admin\ArticleController@stop') -> name('admin_article_stop');//文章停用
         Route::post('notPass','Admin\ArticleController@notPass') -> name('admin_article_notpass');//文章审核不通过
         Route::get('page','Admin\ArticleController@page') -> name('admin_article_page');//文章详情页
-
     });
 
     //文章类别

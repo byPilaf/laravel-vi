@@ -112,14 +112,16 @@
 <script type="text/javascript" src="/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-$('.table-sort').dataTable({
-	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
-	"bStateSave": true,//状态保存
-	"pading":false,
-	"aoColumnDefs": [
-	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	  {"orderable":false,"aTargets":[0,11]}// 不参与排序的列
-	]
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+		"bStateSave": true,//状态保存
+		"pading":false,
+		"aoColumnDefs": [
+		{"bVisible": false, "aTargets": [ 0 ]} //控制列的隐藏显示
+		{"orderable":false,"aTargets":[0,11]}// 不参与排序的列
+		]
+	});
 });
 
 /*文章-查看*/

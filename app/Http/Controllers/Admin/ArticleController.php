@@ -19,6 +19,13 @@ class ArticleController extends Controller
         return view('admin.article.index',compact('data'));
     }
 
+    //待审核文章列表
+    public function review()
+    {
+        $data = Article::where('article_status','3')->get();
+        return view('admin.article.index',compact('data'));
+    }
+
     //查看文章详情
     public function page(Request $request)
     {
