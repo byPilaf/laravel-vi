@@ -21,7 +21,8 @@ class CreateArticleTable extends Migration
             $table->unsignedInteger('read_num') -> notnull() -> default(0) -> comment('文章阅读数');
             $table->unsignedInteger('favorites_num') -> notnull() -> default(0) -> comment('文章收藏数');
             $table->unsignedtinyInteger('article_sort') -> notnull() -> default(0) -> comment('文章排序值');
-            $table->enum('article_status',['1','2','3']) -> notnull() -> default('3') -> comment('状态,1=禁用,2=启用,3=待审核');
+            $table->enum('article_status',['1','2','3','4']) -> notnull() -> default('3') -> comment('状态,1=禁用,2=启用,3=待审核,4=未通过');
+            $table->string('reason',255) -> nullable() -> comment('审核未通过原因');
             $table->timestamps();
         });
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 //引入模型
 use App\Model\Article;
+use App\Model\ArticleType;
 
 class ArticleController extends Controller
 {
@@ -71,7 +72,7 @@ class ArticleController extends Controller
         else
         {
             //get请求页面
-            $articleType = DB::table('article_type') -> get();
+            $articleType = ArticleType::all();
             return view('admin.article.add',compact('articleType'));
         }
         
@@ -126,7 +127,7 @@ class ArticleController extends Controller
             //get请求页面
             $id = $request -> get('id');
             $data = Article::where('id',$id) -> get();
-            $articleType = DB::table('article_type') -> get();
+            $articleType = ArticleType::all();
             return view('admin.article.add',compact('data','articleType'));
         }
         
@@ -137,6 +138,7 @@ class ArticleController extends Controller
     {
         $id = $request -> only('id');
         $data['article_status'] = 2;
+        $data['reason'] = "";
         $request = Article::where('id',$id) -> update($data);
 
         //判断是否成功
@@ -166,6 +168,27 @@ class ArticleController extends Controller
         else
         {
             $response = ['code' => '1','msg' => '停用失败'];
+        }
+        return response() -> json($response);
+    }
+
+    //文章审核不通过
+    public function notPass(Request $request)
+    {
+        $id = $request -> only('id');
+        $data = $request -> only('reason');
+        $data['article_status'] = 4;
+
+        $request = Article::where('id',$id) -> update($data);
+
+        //判断是否成功
+        if($request)
+        {
+            $response = ['code' => '0','msg' => '审核完成'];
+        }
+        else
+        {
+            $response = ['code' => '1','msg' => '审核失败'];
         }
         return response() -> json($response);
     }

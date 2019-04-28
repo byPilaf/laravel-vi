@@ -17,4 +17,21 @@ class Article extends Model
         //一对一
         return $this -> hasOne('App\Model\ArticleType','id','type_id');
     }
+
+    /**
+     * 查询文章对应作者
+     */
+    public function rel_author()
+    {
+        //一对一
+        return $this -> hasOne('App\Model\User','id','author_id');
+    }
+
+    /**
+     * 查询文章对应评论
+     */
+    public function rel_comment()
+    {
+        return $this -> hasMany('App\Model\Comment','article_id');
+    }
 }

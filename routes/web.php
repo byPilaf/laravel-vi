@@ -88,6 +88,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::post('delete','Admin\ArticleController@delete') -> name('admin_article_delete'); //文章删除
         Route::post('start','Admin\ArticleController@start') -> name('admin_article_start');//文章启用
         Route::post('stop','Admin\ArticleController@stop') -> name('admin_article_stop');//文章停用
+        Route::post('notPass','Admin\ArticleController@notPass') -> name('admin_article_notpass');//文章审核不通过
+        Route::get('page','Admin\ArticleController@page') -> name('admin_article_page');//文章详情页
     });
 
     //文章类别
