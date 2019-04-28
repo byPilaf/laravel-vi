@@ -49,7 +49,7 @@
 					<td>{{$val->rel_type->typename}}</td>
 					<td>{{$val->read_num}}</td>
 					<td>{{$val->favorites_num}}</td>
-					<td>{{$val->rel_comment->count()}}</td>
+					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_show('查看评论','{{route('admin_comment_page')}}','{{$val -> id}}')" title="查看评论">{{$val->rel_comment->count()}}</u></td>
 					<td>{{$val->created_at}}</td>
 					<td class="td-status">
 					@switch($val->article_status)

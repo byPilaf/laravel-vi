@@ -27,7 +27,8 @@
 				<td>{{$val -> rolename}}</td>
 				<td>
 				@foreach( $val -> manager_name as $name)
-					<a href="#">{{$name -> username}}</a>&nbsp;&nbsp;
+				<u style="cursor:pointer" class="text-primary" onClick="manager_show('查看管理员','{{route('admin_manager_page')}}','{{$name -> id}}','400','450')" title="查看管理员">{{$name -> username}}</u>
+				&nbsp;&nbsp;
 				@endforeach
 				</td>
 				<td>{{$val -> description}}</td>
@@ -58,6 +59,12 @@ $(function(){
 		"order": [[1,"asc"]]
 	});
 });
+
+/*管理员-查看*/
+function manager_show(title,url,id,w,h){
+	layer_show(title,url+'?id='+id,w,h);
+}
+
 /*管理员-角色-添加*/
 function admin_role_add(title,url,w,h){
 	layer_show(title,url,w,h);

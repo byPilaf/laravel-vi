@@ -21,6 +21,15 @@ class ManagerController extends Controller
         return view('admin.manager.index',compact('data'));
     }
 
+    //查看管理员详情
+    public function page(Request $request)
+    {
+        //获取id
+        $id = (int) $request -> get('id');
+        $manager = Manager::find($id);
+        return view('admin.manager.page',compact('manager'));
+    }
+
     //管理员添加
     public function add(Request $request)
     {

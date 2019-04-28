@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::post('stop','Admin\ManagerController@stop') -> name('admin_manager_stop');//管理员停用
         Route::post('delete','Admin\ManagerController@delete') -> name('admin_manager_delete');//管理员删除
         Route::any('editPassword','Admin\ManagerController@editPassword') -> name('admin_manager_editPassword');//管理员修改密码
+        Route::get('page','Admin\ManagerController@page') -> name('admin_manager_page'); //管理员详情
     });
 
     //权限管理
@@ -90,6 +91,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::post('stop','Admin\ArticleController@stop') -> name('admin_article_stop');//文章停用
         Route::post('notPass','Admin\ArticleController@notPass') -> name('admin_article_notpass');//文章审核不通过
         Route::get('page','Admin\ArticleController@page') -> name('admin_article_page');//文章详情页
+
     });
 
     //文章类别
@@ -102,6 +104,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
 
     //评论管理
     Route::group(['prefix' => 'comment'],function(){
+        Route::get('comment','Admin\CommentController@comment') -> name('admin_comment_page');//文章评论详情页
         Route::get('index','Admin\CommentController@index'); //评论列表展示
         Route::any('add','Admin\CommentController@add');    //评论添加
         Route::any('edit','Admin\CommentController@edit');  //评论编辑
