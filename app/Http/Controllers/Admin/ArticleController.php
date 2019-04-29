@@ -26,6 +26,13 @@ class ArticleController extends Controller
         return view('admin.article.index',compact('data'));
     }
 
+    //审核不通过的文章列表
+    public function notPassArticleList()
+    {
+        $data = Article::where('article_status','4') -> get();
+        return view('admin.article.notPassList',compact('data'));
+    }
+
     //查看文章详情
     public function page(Request $request)
     {
