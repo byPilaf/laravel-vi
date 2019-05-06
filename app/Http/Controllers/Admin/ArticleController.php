@@ -89,7 +89,6 @@ class ArticleController extends Controller
             $articleType = ArticleType::all();
             return view('admin.article.add',compact('articleType'));
         }
-        
     }
 
     //文章修改
@@ -144,7 +143,6 @@ class ArticleController extends Controller
             $articleType = ArticleType::all();
             return view('admin.article.add',compact('data','articleType'));
         }
-        
     }
 
     //文章启用
@@ -165,8 +163,8 @@ class ArticleController extends Controller
             $response = ['code' => '1','msg' => '启用失败'];
         }
         return response() -> json($response);
-
     }
+    
     //文章停用
     public function stop(Request $request)
     {

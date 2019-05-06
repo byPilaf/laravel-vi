@@ -35,7 +35,6 @@ class ManagerController extends Controller
     {
         if($request -> isMethod('post'))
         {
-           
             //post添加检查
             $this -> validate($request,[
                 'username' => 'required|min:3|max:20|unique:manager,username',
@@ -80,7 +79,6 @@ class ManagerController extends Controller
             $role = Role::all();
             return view('admin.manager.add',compact('role'));
         }
-        
     }
 
     //管理员修改
@@ -124,7 +122,6 @@ class ManagerController extends Controller
             $role = Role::all();
             return view('admin.manager.edit',compact('data','role'));
         }
-        
     }
 
     //管理员启用
@@ -134,17 +131,16 @@ class ManagerController extends Controller
         $data['manager_status'] = 2;
         $request = Manager::where('id',$id) -> update($data);
 
-         //判断是否成功
-         if($request)
-         {
-             $response = ['code' => '0','msg' => '启用成功'];
-         }
-         else
-         {
-             $response = ['code' => '1','msg' => '启用失败'];
-         }
-         return response() -> json($response);
-
+        //判断是否成功
+        if($request)
+        {
+            $response = ['code' => '0','msg' => '启用成功'];
+        }
+        else
+        {
+            $response = ['code' => '1','msg' => '启用失败'];
+        }
+        return response() -> json($response);
     }
     //管理员停用
     public function stop(Request $request)
@@ -153,16 +149,16 @@ class ManagerController extends Controller
         $data['manager_status'] = 1;
         $request = Manager::where('id',$id) -> update($data);
 
-         //判断是否成功
-         if($request)
-         {
-             $response = ['code' => '0','msg' => '停用成功'];
-         }
-         else
-         {
-             $response = ['code' => '1','msg' => '停用失败'];
-         }
-         return response() -> json($response);
+        //判断是否成功
+        if($request)
+        {
+            $response = ['code' => '0','msg' => '停用成功'];
+        }
+        else
+        {
+            $response = ['code' => '1','msg' => '停用失败'];
+        }
+        return response() -> json($response);
     }
 
     //管理员删除

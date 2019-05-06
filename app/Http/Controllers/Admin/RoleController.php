@@ -90,7 +90,6 @@ class RoleController extends Controller
             //get请求页面
             return view('admin.role.add',compact('topAuth'));
         }
-        
     }
 
     //角色修改
@@ -129,7 +128,6 @@ class RoleController extends Controller
             $data = Role::find($id);
             return view('admin.role.edit',compact('data'));
         }
-        
     }
 
     //角色权限编辑
@@ -153,7 +151,6 @@ class RoleController extends Controller
                 $response = ['code' => '1','msg' => '数据并未修改'];
             }
             return response() -> json($response);
-
         }
         else
         {

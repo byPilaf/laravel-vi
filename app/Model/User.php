@@ -13,5 +13,4 @@ class User extends Model
     //基本定义
     protected $table = 'user';
     protected $dates = ['deleted_at'];
-    
 }

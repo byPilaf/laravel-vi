@@ -20,7 +20,6 @@ Route::get('admin/login','Admin\PublicController@login') -> name('login');
 //后台登录验证
 Route::post('admin/login/check','Admin\publicController@check') -> name('admin_login_check');
 
-
 //后台分组
 Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], function () {
 

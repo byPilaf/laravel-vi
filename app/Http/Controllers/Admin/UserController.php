@@ -66,7 +66,6 @@ class UserController extends Controller
                 $sheet -> rows($cellDate);
             });
         }) -> export('xls'); //导出文件
-
     }
 
     //根据地区id获取下属行政区划
@@ -197,16 +196,16 @@ class UserController extends Controller
         $data['user_status'] = 2;
         $request = User::where('id',$id) -> update($data);
 
-         //判断是否成功
-         if($request)
-         {
-             $response = ['code' => '0','msg' => '启用成功'];
-         }
-         else
-         {
-             $response = ['code' => '1','msg' => '启用失败'];
-         }
-         return response() -> json($response);
+        //判断是否成功
+        if($request)
+        {
+            $response = ['code' => '0','msg' => '启用成功'];
+        }
+        else
+        {
+            $response = ['code' => '1','msg' => '启用失败'];
+        }
+        return response() -> json($response);
 
     }
     //会员停用
@@ -216,16 +215,16 @@ class UserController extends Controller
         $data['user_status'] = 1;
         $request = User::where('id',$id) -> update($data);
 
-         //判断是否成功
-         if($request)
-         {
-             $response = ['code' => '0','msg' => '停用成功'];
-         }
-         else
-         {
-             $response = ['code' => '1','msg' => '停用失败'];
-         }
-         return response() -> json($response);
+        //判断是否成功
+        if($request)
+        {
+            $response = ['code' => '0','msg' => '停用成功'];
+        }
+        else
+        {
+            $response = ['code' => '1','msg' => '停用失败'];
+        }
+        return response() -> json($response);
     }
 
     //会员删除
