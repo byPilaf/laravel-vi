@@ -103,11 +103,15 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
 
     //评论管理
     Route::group(['prefix' => 'comment'],function(){
-        Route::get('comment','Admin\CommentController@comment') -> name('admin_comment_page');//文章评论详情页
+        Route::get('comment','Admin\CommentController@articleComment') -> name('admin_article_comment');//文章评论详情页
         Route::get('index','Admin\CommentController@index'); //评论列表展示
         Route::any('add','Admin\CommentController@add');    //评论添加
         Route::any('edit','Admin\CommentController@edit');  //评论编辑
-        Route::post('delete','Admin\CommentController@delete');//评论删除
+
+        Route::post('delete','Admin\CommentController@delete') -> name('admin_comment_delete'); //文章删除
+        Route::post('start','Admin\CommentController@start') -> name('admin_comment_start');//文章启用
+        Route::post('stop','Admin\CommentController@stop') -> name('admin_comment_stop');//文章停用
+        Route::post('notPass','Admin\CommentController@notPass') -> name('admin_comment_notpass');//文章审核不通过
     });
 });
 

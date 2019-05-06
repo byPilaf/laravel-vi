@@ -16,4 +16,12 @@ class Comment extends Model
     {
         return $this->belongsTo('App\Model\Article', 'article_id');
     }
+
+    /**
+     * 查看评论作者
+     */
+    public function post_user()
+    {
+        return $this -> hasOne('App\Model\User','id','user_id');
+    }
 }
