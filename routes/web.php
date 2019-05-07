@@ -99,19 +99,18 @@ Route::group(['prefix' => 'admin','middleware' => ['auth:admin','rbac']], functi
         Route::any('add','Admin\ArticleTypeController@add') -> name('admin_articleType_add');    //文章类别添加
         Route::any('edit','Admin\ArticleTypeController@edit') -> name('admin_articleType_edit');  //文章类别编辑
         Route::post('delete','Admin\ArticleTypeController@delete') -> name('admin_articleType_delete'); //文章类别删除
+        Route::get('comment','Admin\CommentController@articleComment') -> name('admin_article_comment');//文章评论详情页
     });
 
     //评论管理
     Route::group(['prefix' => 'comment'],function(){
-        Route::get('comment','Admin\CommentController@articleComment') -> name('admin_article_comment');//文章评论详情页
-        Route::get('index','Admin\CommentController@index'); //评论列表展示
-        Route::any('add','Admin\CommentController@add');    //评论添加
-        Route::any('edit','Admin\CommentController@edit');  //评论编辑
-
-        Route::post('delete','Admin\CommentController@delete') -> name('admin_comment_delete'); //文章删除
-        Route::post('start','Admin\CommentController@start') -> name('admin_comment_start');//文章启用
-        Route::post('stop','Admin\CommentController@stop') -> name('admin_comment_stop');//文章停用
-        Route::post('notPass','Admin\CommentController@notPass') -> name('admin_comment_notpass');//文章审核不通过
+        Route::get('index','Admin\CommentController@index') -> name('admin_comment_list'); //评论列表展示
+        Route::get('review','Admin\CommentController@review') -> name('admin_comment_review_list'); //待审核评论列表
+        Route::get('notPassCommentList','Admin\CommentController@notPassCommentList') -> name('admin_comment_notPassCommentList_list'); //下架的评论列表
+        Route::get('page','Admin\CommentController@page') -> name('admin_comment_page'); //评论详情页
+        Route::post('delete','Admin\CommentController@delete') -> name('admin_comment_delete'); //评论删除
+        Route::post('start','Admin\CommentController@start') -> name('admin_comment_start'); //评论启用
+        Route::post('stop','Admin\CommentController@stop') -> name('admin_comment_stop'); //评论停用
     });
 });
 

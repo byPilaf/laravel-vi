@@ -79,13 +79,22 @@
 			</dd>
 		</dl>
 		<dl id="menu-comments">
+			<dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="{{ route('admin_comment_review_list') }}" data-title="待审核的评论列表" href="javascript:void(0)">待审核的评论列表</a></li>
+					<li><a data-href="{{ route('admin_comment_list') }}" data-title="评论列表" href="javascript:void(0)">评论列表</a></li>	
+					<li><a data-href="{{ route('admin_comment_notPassCommentList_list') }}" data-title="下架的评论列表" href="javascript:void(0)">下架的评论列表</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-comments">
 			<dt><i class="Hui-iconfont">&#xe622;</i> 文章管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="{{ route('admin_article_review_list') }}" data-title="待审核文章列表" href="javascript:void(0)">待审核文章列表</a></li>
 					<li><a data-href="{{ route('admin_article_list') }}" data-title="文章列表" href="javascript:void(0)">文章列表</a></li>
 					<li><a data-href="{{ route('admin_articleType_list') }}" data-title="文章分类" href="javascript:void(0)">文章分类</a></li>
-					<li><a data-href="" data-title="被举报的评论列表" href="javascript:;">被举报的评论列表</a></li>
 				</ul>
 			</dd>
 		</dl>

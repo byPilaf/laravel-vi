@@ -28,7 +28,7 @@
 					<th width="20">ID</th>
 					<th width="50">作者</th>
 					<th width="50">点赞数</th>
-					<th width="50">评论内容</th>
+					<th>评论内容</th>
 					<th width="60">发布状态</th>
 					<th width="100">操作</th>
 				</tr>
