@@ -14,19 +14,24 @@ class CommentController extends Controller
     public function articleComment(Request $request)
     {
         //获取文章id
-        $articleId = $request -> get('id');
-        $data = Comment::where('article_id',$articleId) -> where('comment_status','<>','1') -> get();
-        //获取父级评论
-        $parentComment = Comment::where('id',$data['pid']) -> get();
+        $articleId = (int) $request -> get('id');
+        //此文章下的所有顶级评论
+        $topComment = Comment::where('article_id',$articleId) -> where('comment_status','<>','1')-> where('pid','0') -> get();
+        foreach($topComment as $val)
+        {
+            var_dump($val['id']);
+        } 
+        //获取顶级评论
+        // $topComment = Comment::where('id',$data['pid']) -> get();
         //返回视图
-        return view('admin.comment.articleComment',compact('data'));
+        // return view('admin.comment.articleComment',compact('data'));
     }
 
     //评论列表
     public function index()
     {
         //获取数据
-        $data = Comment::all();
+        $data = Comment::where('comment_status','<>','1') -> get();
         //展示视图
         return view('admin.comment.index',compact('data'));
     }
@@ -42,7 +47,7 @@ class CommentController extends Controller
     public function notPassCommentList()
     {
         $data = Comment::where('comment_status','1') -> get();
-        return view('admin.comment.notPassList',compact('data'));
+        return view('admin.comment.index',compact('data'));
     }
 
     //查看评论详情
@@ -59,7 +64,6 @@ class CommentController extends Controller
     {
         $id = $request -> only('id');
         $data['comment_status'] = 2;
-        $data['reason'] = "";
         $request = Comment::where('id',$id) -> update($data);
 
         //判断是否成功

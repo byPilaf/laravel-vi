@@ -1,5 +1,5 @@
 @include('admin.header')
-<title>查看文章详情</title>
+<title>查看评论详情</title>
 </head>
 <body>
 <div class="cl pd-20" style=" background-color:#5bacb6">
