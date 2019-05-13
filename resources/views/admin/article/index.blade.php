@@ -39,8 +39,8 @@
 				</tr>
 			</thead>
 			<tbody>
+				@foreach($data as $val)
 				<tr class="text-c">
-					@foreach($data as $val)
 					<td><input type="checkbox" value="" name=""></td>
 					<td>{{$val -> id}}</td>
 					<td>{{$val->article_sort}}</td>
@@ -99,8 +99,8 @@
 							<i class="Hui-iconfont">&#xe6e2;</i>
 						</a>
 					</td>
-					@endforeach
 				</tr>
+				@endforeach
 			</tbody>
 		</table>
 	</div>

@@ -21,14 +21,15 @@
 				</tr>
 			</thead>
 			<tbody>
+				@foreach($data as $val)
 				<tr class="text-c">
-					@foreach($data as $val)
 					<td><input type="checkbox" value="" name=""></td>
 					<td>{{$val->id}}</td>
 					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_show('查看用户','{{route('admin_user_page')}}','{{$val -> user_id}}')" title="查看用户">{{$val->post_user->name}}</u></td>
 					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_show('查看文章','{{route('admin_article_page')}}','{{$val -> article_id}}')" title="查看文章">{{$val->post_article->title}}</u></td>
 					<td>{{$val->comment_like_number}}</td>
 					<td>{{$val->comment_content}}</td>
+					<td></td>
 					<td class="text-l">
 					@if($val->comment_status === '2')
 						<span class="label label-success radius">已启用</span>
@@ -57,8 +58,9 @@
 							<i class="Hui-iconfont">&#xe6e2;</i>
 						</a>
 					</td>
-					@endforeach
+					
 				</tr>
+				@endforeach
 			</tbody>
 		</table>
 	</div>
