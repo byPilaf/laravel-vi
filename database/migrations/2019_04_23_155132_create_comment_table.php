@@ -21,6 +21,7 @@ class CreateCommentTable extends Migration
             $table->unsignedInteger('comment_like_number') -> notnull() -> default(0) -> comment('点赞数');          
             $table->string('comment_content',500) -> notnull() -> comment('评论内容');    
             $table->enum('comment_status',['1','2','3']) -> notnull() -> default('2') -> comment('状态,1=禁用,2=启用,3=被举报'); 
+            $table->string('comment_notpass_reason',255) -> nullable() -> comment('审核未通过原因');
             $table->timestamps();
         });
         //表注释

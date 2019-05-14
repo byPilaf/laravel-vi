@@ -17,6 +17,12 @@ class Comment extends Model
         return $this->belongsTo('App\Model\Article', 'article_id');
     }
 
+    //获取子评论
+    public function post_childComment()
+    {
+        return $this->hasOne('App\Model\Comment','id','pid');
+    }
+
     /**
      * 查看评论作者
      */

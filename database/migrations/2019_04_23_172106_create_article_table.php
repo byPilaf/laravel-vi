@@ -23,7 +23,7 @@ class CreateArticleTable extends Migration
             $table->unsignedtinyInteger('article_sort') -> notnull() -> default(0) -> comment('文章排序值');
             $table->enum('is_comment',['1','2']) -> notnull() -> default('2') -> comment('是否允许评论,1=不允许,2=允许');
             $table->enum('article_status',['1','2','3','4']) -> notnull() -> default('3') -> comment('状态,1=禁用,2=启用,3=待审核,4=未通过');
-            $table->string('reason',255) -> nullable() -> comment('审核未通过原因');
+            $table->string('article_notpass_reason',255) -> nullable() -> comment('审核未通过原因');
             $table->timestamps();
         });
 

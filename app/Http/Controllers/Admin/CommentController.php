@@ -16,15 +16,10 @@ class CommentController extends Controller
         //获取文章id
         $articleId = (int) $request -> get('id');
         //此文章下的所有顶级评论
-        $topComment = Comment::where('article_id',$articleId) -> where('comment_status','<>','1')-> where('pid','0') -> get();
-        foreach($topComment as $val)
-        {
-            var_dump($val['id']);
-        } 
-        //获取顶级评论
-        // $topComment = Comment::where('id',$data['pid']) -> get();
+        $data = Comment::where('article_id',$articleId) -> where('comment_status','<>','1')-> where('pid','0') -> get();
+        //获取其子评论
         //返回视图
-        // return view('admin.comment.articleComment',compact('data'));
+        return view('admin.comment.articleComment',compact('data'));
     }
 
     //评论列表

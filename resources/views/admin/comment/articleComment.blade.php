@@ -2,24 +2,7 @@
 <title>评论列表</title>
 </head>
 <body>
-<!-- <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 评论管理 <span class="c-gray en">&gt;</span> 评论列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav> -->
 <div class="page-container">
-	<!-- <div class="text-c">
-		<button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
-	 <span class="select-box inline">
-		<select name="" class="select">
-			<option value="0">全部分类</option>
-			<option value="1">分类一</option>
-			<option value="2">分类二</option>
-		</select>
-		</span> 日期范围：
-		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;">
-		-
-		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax" class="input-text Wdate" style="width:120px;">
-		<input type="text" name="" id="" placeholder="评论名称" style="width:250px" class="input-text">
-		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜评论</button>
-	</div> -->
-	<!-- <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" data-title="添加评论" onclick="article_add('添加评论','{{route('admin_article_add')}}','','610')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加评论</a></span> <span class="r">共有数据：<strong>{{$data->count()}}</strong> 条</span> </div> -->
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
@@ -34,8 +17,8 @@
 				</tr>
 			</thead>
 			<tbody>
+				@foreach($data as $val)
 				<tr class="text-c">
-					@foreach($data as $val)
 					<td><input type="checkbox" value="" name=""></td>
 					<td>{{$val->id}}</td>
 					<td>{{$val->post_user->name}}</td>
@@ -70,8 +53,8 @@
 							<i class="Hui-iconfont">&#xe6e2;</i>
 						</a>
 					</td>
-					@endforeach
 				</tr>
+				@endforeach
 			</tbody>
 		</table>
 	</div>
@@ -137,34 +120,7 @@ function article_stop(obj,id){
 	});
 }
 
-/*评论-启用*/
-function article_start(obj,id){
-	layer.confirm('确认要启用吗？',function(index){
-		//此处请求后台程序，下方是成功后的前台处理……
-		$.ajax({
-			type:'POST',
-			url:'{{ route("admin_comment_start") }}',
-			data:{id:id,_token:"{{csrf_token()}}"},
-			dataType:"json",
-			success: function(data){
-				if(data.code == '0')
-				{
-					layer.msg(data.msg,{icon:1,time:1000},function(){
-						location.href = location.href;
-					});
-				}
-				else{
-					layer.msg(data.msg,{icon:2,time:1000});
-				}
-			},
-			error: function(){
-				layer.msg('启用请求失败',{icon:2,time:1000});
-			},
-		});
-	});
-}
-
-/*资讯-审核*/
+/*评论-审核*/
 function article_shenhe(obj,id){
 	layer.confirm('审核评论？', {
 		btn: ['通过','不通过','取消'], 
@@ -199,7 +155,7 @@ function article_shenhe(obj,id){
 		layer.prompt({title: '审核未通过的原因:', formType: 2}, function(text, index){
 			$.ajax({
 				type: 'POST',
-				url: '{{ route("admin_comment_notpass") }}',
+				url: '{{ route("admin_comment_stop") }}',
 				data: {id:id,_token:"{{csrf_token()}}",reason:text},
 				dataType: 'json',
 				success: function(data){
@@ -221,6 +177,33 @@ function article_shenhe(obj,id){
 
 			
 	});	
+}
+
+/*评论-启用*/
+function article_start(obj,id){
+	layer.confirm('确认要启用吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+		$.ajax({
+			type:'POST',
+			url:'{{ route("admin_comment_start") }}',
+			data:{id:id,_token:"{{csrf_token()}}"},
+			dataType:"json",
+			success: function(data){
+				if(data.code == '0')
+				{
+					layer.msg(data.msg,{icon:1,time:1000},function(){
+						location.href = location.href;
+					});
+				}
+				else{
+					layer.msg(data.msg,{icon:2,time:1000});
+				}
+			},
+			error: function(){
+				layer.msg('启用请求失败',{icon:2,time:1000});
+			},
+		});
+	});
 }
 
 /*评论-删除*/
