@@ -20,7 +20,7 @@ class Comment extends Model
     //获取子评论
     public function post_childComment()
     {
-        return $this->hasOne('App\Model\Comment','id','pid');
+        return $this->hasMany('App\Model\Comment','pid','id');
     }
 
     /**

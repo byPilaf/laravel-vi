@@ -17,7 +17,6 @@ class CommentController extends Controller
         $articleId = (int) $request -> get('id');
         //此文章下的所有顶级评论
         $data = Comment::where('article_id',$articleId) -> where('comment_status','<>','1')-> where('pid','0') -> get();
-        //获取其子评论
         //返回视图
         return view('admin.comment.articleComment',compact('data'));
     }
@@ -26,7 +25,8 @@ class CommentController extends Controller
     public function index()
     {
         //获取数据
-        $data = Comment::where('comment_status','<>','1') -> get();
+        // $data = Comment::where('comment_status','<>','1') -> get();
+        $data = Comment::where('comment_status','<>','1')-> where('pid','0') -> get();
         //展示视图
         return view('admin.comment.index',compact('data'));
     }
@@ -106,6 +106,27 @@ class CommentController extends Controller
         else
         {
             $response = ['code' => '1','msg' => '删除失败'];
+        }
+        return response() -> json($response);
+    }
+
+    //评论审核不通过
+    public function notPass(Request $request)
+    {
+        $id = $request -> only('id');
+        $data = $request -> only('reason');
+        $data['comment_status'] = 1;
+
+        $request = Comment::where('id',$id) -> update($data);
+
+        //判断是否成功
+        if($request)
+        {
+            $response = ['code' => '0','msg' => '审核完成'];
+        }
+        else
+        {
+            $response = ['code' => '1','msg' => '审核失败'];
         }
         return response() -> json($response);
     }

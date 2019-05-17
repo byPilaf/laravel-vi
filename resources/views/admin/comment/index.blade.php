@@ -58,8 +58,18 @@
 							<i class="Hui-iconfont">&#xe6e2;</i>
 						</a>
 					</td>
-					
 				</tr>
+				<thead>
+					<tr>
+						<th>子评论id</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($val->post_childComment as $chil)
+						<td>{{$chil->id}}</td>
+					@endforeach
+				</tbody>
+					
 				@endforeach
 			</tbody>
 		</table>
