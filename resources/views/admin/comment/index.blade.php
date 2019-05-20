@@ -69,7 +69,6 @@
 						<td>{{$chil->id}}</td>
 					@endforeach
 				</tbody>
-					
 				@endforeach
 			</tbody>
 		</table>
