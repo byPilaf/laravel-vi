@@ -240,8 +240,6 @@ $(function(){
         $( '#'+file.id ).find('.progress').remove();
     });
 
-	
-
 	//jQuery四级联动操作
 	//jQuery的联动二级
 	$('select[name=country_id]').change(function(){
